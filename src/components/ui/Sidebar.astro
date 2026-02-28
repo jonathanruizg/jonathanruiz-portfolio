@@ -1,0 +1,218 @@
+---
+const navLinks = [
+  {
+    label: 'About',
+    href: '#about',
+    icon: `<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
+  },
+  {
+    label: 'Work',
+    href: '#work',
+    icon: `<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>`,
+  },
+  {
+    label: 'Community',
+    href: '#community',
+    icon: `<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
+  },
+  {
+    label: 'Vibe Coding',
+    href: '#vibe-coding',
+    icon: `<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>`,
+  },
+];
+
+const socialLinks = [
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/jonathanruiz',
+    icon: `<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>`,
+  },
+  {
+    label: 'Dribbble',
+    href: 'https://dribbble.com/jonathanruiz',
+    icon: `<circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/>`,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:hello@jonathanruiz.dev',
+    icon: `<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>`,
+  },
+];
+---
+
+<!-- Desktop sidebar -->
+<aside
+  id="sidebar"
+  class="fixed left-0 top-0 h-screen w-[240px] flex flex-col z-40 hidden md:flex"
+  style="background-color: var(--bg); border-right: 1px solid var(--border);"
+>
+  <!-- Top: identity -->
+  <div class="px-5 py-6" style="border-bottom: 1px solid var(--border);">
+    <div
+      class="w-9 h-9 rounded-lg flex items-center justify-center text-white text-xs font-semibold mb-4 flex-shrink-0"
+      style="background-color: var(--accent);"
+    >
+      JR
+    </div>
+    <p class="text-sm font-semibold leading-tight mb-0.5" style="color: var(--text);">
+      Jonathan Ruiz
+    </p>
+    <p class="text-xs leading-snug" style="color: var(--text-muted);">
+      Sr. Design Manager · Miami, FL
+    </p>
+  </div>
+
+  <!-- Middle: nav -->
+  <nav class="flex-1 px-3 py-4 overflow-y-auto">
+    <ul class="space-y-0.5">
+      {navLinks.map((link) => (
+        <li>
+          <a href={link.href} class="nav-link">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={link.icon}
+            />
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <!-- Bottom: socials + dark mode -->
+  <div class="px-5 pb-5 pt-4 space-y-4" style="border-top: 1px solid var(--border);">
+    <div class="flex items-center gap-1.5">
+      {socialLinks.map((s) => (
+        <a
+          href={s.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="icon-btn"
+          aria-label={s.label}
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            set:html={s.icon}
+          />
+        </a>
+      ))}
+
+      <!-- Dark mode toggle -->
+      <button
+        id="theme-toggle"
+        class="icon-btn ml-auto"
+        aria-label="Toggle dark mode"
+      >
+        <!-- Sun: shown in dark mode -->
+        <svg id="icon-sun" class="hidden dark:block w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <!-- Moon: shown in light mode -->
+        <svg id="icon-moon" class="block dark:hidden w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile top bar -->
+<div
+  class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-14"
+  style="background-color: var(--bg); border-bottom: 1px solid var(--border);"
+>
+  <div class="flex items-center gap-2.5">
+    <div
+      class="w-7 h-7 rounded-md flex items-center justify-center text-white text-[10px] font-semibold"
+      style="background-color: var(--accent);"
+    >
+      JR
+    </div>
+    <span class="text-sm font-semibold" style="color: var(--text);">Jonathan Ruiz</span>
+  </div>
+  <div class="flex items-center gap-2">
+    <button id="theme-toggle-mobile" class="icon-btn" aria-label="Toggle dark mode">
+      <svg id="mob-sun" class="hidden dark:block w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+      </svg>
+      <svg id="mob-moon" class="block dark:hidden w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+      </svg>
+    </button>
+    <button id="mobile-menu-btn" class="icon-btn" aria-label="Open menu">
+      <svg class="w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12h18M3 6h18M3 18h18"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- Mobile drawer -->
+<div
+  id="mobile-drawer"
+  class="md:hidden fixed inset-0 z-40 hidden"
+  style="background-color: var(--bg);"
+>
+  <div class="pt-20 px-5">
+    <nav>
+      <ul class="space-y-1">
+        {navLinks.map((link) => (
+          <li>
+            <a href={link.href} class="nav-link text-base py-3 mobile-nav-link">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={link.icon} />
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="mt-8 flex items-center gap-2">
+      {socialLinks.map((s) => (
+        <a href={s.href} target="_blank" rel="noopener" class="icon-btn" aria-label={s.label}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+  function applyTheme(dark: boolean) {
+    document.documentElement.classList.toggle('dark', dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  }
+
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    applyTheme(!document.documentElement.classList.contains('dark'));
+  });
+  document.getElementById('theme-toggle-mobile')?.addEventListener('click', () => {
+    applyTheme(!document.documentElement.classList.contains('dark'));
+  });
+
+  const drawer = document.getElementById('mobile-drawer');
+  document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+    drawer?.classList.toggle('hidden');
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+    link.addEventListener('click', () => drawer?.classList.add('hidden'));
+  });
+</script>

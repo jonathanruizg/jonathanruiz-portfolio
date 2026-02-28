@@ -1,0 +1,91 @@
+---
+const caseStudies = [
+  {
+    number: '01',
+    company: 'Docusign Ink',
+    tags: ['Design Systems', 'Team Management'],
+    href: '#',
+  },
+  {
+    number: '02',
+    company: 'Docusign Mobile Apps',
+    tags: ['UI/UX', 'Research'],
+    href: '#',
+  },
+  {
+    number: '03',
+    company: 'Glint',
+    tags: ['UI/UX', 'Employee Engagement', 'Research'],
+    href: '#',
+  },
+  {
+    number: '04',
+    company: 'Shazam TV Experience',
+    tags: ['UI/UX', 'Visual Design', 'Mobile'],
+    href: '#',
+  },
+];
+---
+
+<section id="work" class="section-padding section-divider">
+  <div class="section-container">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <p class="label mb-2">Selected Work</p>
+        <h2 class="section-title text-2xl">Case Studies</h2>
+      </div>
+    </div>
+
+    <!-- Work list -->
+    <div class="divide-y" style="border-color: var(--border);">
+      {caseStudies.map((item) => (
+        <a
+          href={item.href}
+          class="group flex items-center gap-6 py-5 transition-colors duration-150 hover:no-underline"
+        >
+          <!-- Number -->
+          <span
+            class="w-10 flex-shrink-0 text-sm tabular-nums"
+            style="font-family: 'DM Mono', monospace; color: var(--text-muted);"
+          >
+            {item.number}
+          </span>
+
+          <!-- Company -->
+          <span
+            class="flex-1 text-base font-medium group-hover:text-accent transition-colors"
+            style="color: var(--text);"
+          >
+            {item.company}
+          </span>
+
+          <!-- Tags -->
+          <div class="hidden sm:flex flex-wrap gap-1.5">
+            {item.tags.map((tag) => (
+              <span
+                class="px-2 py-0.5 text-xs rounded"
+                style="background-color: var(--bg-secondary); color: var(--text-muted); border: 1px solid var(--border);"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <!-- Arrow: visible only on hover -->
+          <svg
+            class="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 -translate-y-0.5 translate-x-0 group-hover:translate-x-0.5 group-hover:-translate-y-1 transition-all duration-150"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            style="color: var(--accent);"
+          >
+            <path d="M7 7h10v10M7 17 17 7"/>
+          </svg>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

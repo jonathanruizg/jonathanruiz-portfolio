@@ -1,0 +1,58 @@
+---
+---
+
+<section id="about" class="section-padding section-divider">
+  <div class="section-container">
+    <p class="label mb-6">About</p>
+
+    <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+      <!-- Left: philosophy -->
+      <div>
+        <h2 class="section-title text-headline mb-5">
+          Design is about people,<br />not pixels.
+        </h2>
+        <p class="body-text max-w-prose">
+          I believe the best design isn't about pixels — it's about people.
+          Servant leadership, radical clarity, and empathy are the foundation
+          of everything I build.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/resume.pdf" target="_blank" rel="noopener" class="btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Resume
+          </a>
+          <a href="https://linkedin.com/in/jonathanruiz" target="_blank" rel="noopener" class="btn-ghost">LinkedIn</a>
+        </div>
+      </div>
+
+      <!-- Right: facts / current -->
+      <div class="space-y-5">
+        <div class="card">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-1.5 h-1.5 rounded-full" style="background-color: #22C55E; animation: pulseDot 2s ease-in-out infinite;"></span>
+            <span class="label text-[10px]">Current role</span>
+          </div>
+          <p class="text-sm font-semibold mb-0.5" style="color: var(--text);">Sr. Product Design Manager</p>
+          <p class="text-sm" style="color: var(--text-muted);">Docusign · Miami, FL</p>
+        </div>
+
+        <div class="card">
+          <p class="label text-[10px] mb-3">Focus areas</p>
+          <div class="flex flex-wrap gap-2">
+            {['Design Systems', 'Team Leadership', 'UX Research', 'Accessibility', 'Design Engineering', 'Mentorship'].map((tag) => (
+              <span
+                class="px-2.5 py-1 text-xs rounded-md"
+                style="background-color: var(--bg); color: var(--text-soft); border: 1px solid var(--border);"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

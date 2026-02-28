@@ -1,0 +1,70 @@
+---
+const cards = [
+  {
+    title: 'Friends of Figma Miami',
+    description: 'Co-leading the Miami chapter — organizing events, workshops, and creative jams for the local design community.',
+    icon: `<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/>`,
+  },
+  {
+    title: 'BrainStation Educator',
+    description: 'Teaching product design and UX fundamentals to the next generation of designers entering the industry.',
+    icon: `<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>`,
+  },
+  {
+    title: 'Faith & Design',
+    description: 'A space where faith and creative work intersect — conversations about purpose, vocation, and integrity in design.',
+    icon: `<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>`,
+  },
+  {
+    title: 'Mentorship',
+    description: 'Open office hours for early-career designers — portfolio reviews, career guidance, and real talk about the industry.',
+    icon: `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>`,
+  },
+];
+---
+
+<section id="community" class="section-padding section-divider">
+  <div class="section-container">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+      <div>
+        <p class="label mb-2">Community</p>
+        <h2 class="section-title text-2xl">Building in public, together</h2>
+      </div>
+      <p class="body-text text-sm max-w-xs">
+        Community is core to how I work and grow.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-4">
+      {cards.map((card) => (
+        <div class="card group">
+          <!-- Icon -->
+          <div
+            class="w-9 h-9 rounded-lg flex items-center justify-center mb-4 flex-shrink-0 transition-colors duration-150"
+            style="background-color: var(--accent-light);"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="color: var(--accent);"
+              set:html={card.icon}
+            />
+          </div>
+
+          <h3 class="text-sm font-semibold mb-2" style="color: var(--text);">
+            {card.title}
+          </h3>
+          <p class="text-sm leading-relaxed" style="color: var(--text-muted);">
+            {card.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
