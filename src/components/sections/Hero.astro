@@ -5,9 +5,9 @@
   <!-- WebGL dot grid -->
   <canvas id="webgl-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
 
-  <!-- Headshot: top-right -->
+  <!-- Headshot: top-left -->
   <div
-    style="position: absolute; top: 2rem; right: 2rem; z-index: 2; opacity: 0; animation: fadeUp 0.6s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;"
+    style="position: absolute; top: 2rem; left: 2rem; z-index: 2; opacity: 0; animation: fadeUp 0.6s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;"
   >
     <img
       src="/JR-Headshot-Circular.png"
@@ -108,15 +108,18 @@ if (gl) {
     precision mediump float;
     varying float v_dist;
     varying float v_alpha;
+    uniform float u_isDark;
     void main() {
       vec2 coord = gl_PointCoord - 0.5;
       float r = length(coord);
       if (r > 0.5) discard;
-      float alpha = mix(0.15, 0.9, v_alpha);
+      float alpha = mix(0.12, 0.85, v_alpha);
       alpha *= (1.0 - r * 1.8);
-      vec3 baseColor = vec3(0.35, 0.35, 0.34);
+      vec3 baseDark = vec3(0.35, 0.35, 0.34);
+      vec3 baseLight = vec3(0.72, 0.70, 0.68);
+      vec3 baseColor = mix(baseLight, baseDark, u_isDark);
       vec3 accentColor = vec3(1.0, 0.373, 0.251);
-      vec3 color = mix(baseColor, accentColor, v_alpha * 0.8);
+      vec3 color = mix(baseColor, accentColor, v_alpha * 0.85);
       gl_FragColor = vec4(color, alpha);
     }
   `;
@@ -176,6 +179,7 @@ if (gl) {
   const mouseLoc = gl.getUniformLocation(program, 'u_mouse');
   const resLoc = gl.getUniformLocation(program, 'u_resolution');
   const timeLoc = gl.getUniformLocation(program, 'u_time');
+  const isDarkLoc = gl.getUniformLocation(program, 'u_isDark');
   let mouse = { x: -9999, y: -9999 };
   let smoothMouse = { x: -9999, y: -9999 };
   document.addEventListener('mousemove', (e) => {
@@ -197,6 +201,7 @@ if (gl) {
   const startTime = Date.now();
   function render() {
     const t = (Date.now() - startTime) / 1000;
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ? 1.0 : 0.0;
     smoothMouse.x += (mouse.x - smoothMouse.x) * 0.08;
     smoothMouse.y += (mouse.y - smoothMouse.y) * 0.08;
     gl.clearColor(0, 0, 0, 0);
@@ -204,6 +209,7 @@ if (gl) {
     gl.uniform2f(mouseLoc, smoothMouse.x, smoothMouse.y);
     gl.uniform2f(resLoc, canvas.width, canvas.height);
     gl.uniform1f(timeLoc, t);
+    gl.uniform1f(isDarkLoc, isDark);
     gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, positions, gl.DYNAMIC_DRAW);
     gl.drawArrays(gl.POINTS, 0, cols * rows);
