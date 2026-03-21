@@ -10,13 +10,14 @@ const GREETING: Message = {
   id: 'greeting',
   role: 'assistant',
   content:
-    "Hi! I'm an AI assistant trained on Jonathan's background and work. Ask me anything — his experience, design process, availability, or community work.",
+    "Hi! I'm JRU, an AI assistant trained on Jonathan's background and work. Ask me anything — his experience, design process, availability, or community work.",
 };
 
 const SUGGESTED = [
   "What's your design process?",
   'Are you available for hire?',
   'Tell me about your work',
+  'What do you do outside of work?',
 ];
 
 // ─── Lucide icon paths ──────────────────────────────────────────────────────
@@ -115,7 +116,7 @@ export default function ChatWidget() {
         {
           id: crypto.randomUUID(),
           role: 'assistant',
-          content: "Sorry, I'm having trouble right now. Reach Jonathan directly at jonathanruizg@me.com",
+          content: "Sorry, I'm having trouble right now. You may reach Jonathan directly at jonathanruizg@me.com",
         },
       ]);
     } finally {
@@ -241,7 +242,7 @@ export default function ChatWidget() {
             </div>
             <div style={{ flex: 1 }}>
               <p style={{ ...fontBase, margin: 0, fontSize: '0.875rem', fontWeight: 600, color: 'var(--text)' }}>
-                Ask Jonathan
+                Ask JRU
               </p>
               <p style={{ ...fontBase, margin: 0, fontSize: '0.7rem', color: 'var(--text-3)' }}>
                 Powered by Claude

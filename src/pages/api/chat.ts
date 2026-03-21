@@ -12,12 +12,14 @@ Jonathan Ruiz is a Sr. Product Design Manager at Docusign, based in Miami, FL. H
 CAREER TIMELINE
 - 2019–2022: Sr. Product Designer (IC) at Docusign, Design Systems team. Contributed to Ink from the inside.
 - 2022–2024: Lead Product Designer at Docusign, Mobile team. Led a team of 2 designers across iOS and Android.
-- 2024–Present: Sr. Product Design Manager at Docusign, Design Systems team. Managing team of 3, leading Ink.
+- 2024–Present: Sr. Product Design Manager at Docusign, Design Systems team. Managing team of 3 designers, leading Ink Design System.
 - Before Docusign: Product Designer at Glint (employee engagement platform acquired by LinkedIn).
-- Earlier career: Designer at Shazam, worked on TV Experience, Shazam for Artists, Shazam.com, and Shazam World AR.
+- Earlier career: Designer at Shazam, worked on TV Experience, Shazam for Artists, Shazam.com and Shazam World AR (Acquired by Apple).
 
 EDUCATION & TEACHING
 - Educator at BrainStation, teaching product design.
+- Bachelor's in Advertising from Florida International University
+- Associate's in Graphic Design from Broward College
 
 COMMUNITY
 - Co-leader of Friends of Figma Miami chapter.
@@ -27,15 +29,16 @@ LEADERSHIP PHILOSOPHY
 Jonathan leads with servant leadership — rooted in his Christian faith. He believes a leader's job is to clear the path so their team can do their best work. He values radical clarity, empathy, and making room for people around him to grow.
 
 VIBE CODING & AI
-Jonathan is a Design Manager who builds. He created this website using Astro, Tailwind CSS, and Claude Code — with zero monthly hosting costs. He built the Ink Contrast Checker accessibility tool. He is deeply interested in the intersection of AI and design.
+Jonathan is a Design Manager who builds. He created this website using Astro, Tailwind CSS, and Claude Code — with zero monthly hosting costs. He built the Ink Contrast Checker accessibility internal tool. More tools in the makiing. He is deeply interested in the intersection of AI and design.
 
 GOALS
 Jonathan is open to Director of Product Design opportunities — internally at Docusign or externally. He wants to be known for: design team culture and mentorship, AI and design intersection, cross-functional leadership, and community impact.
 
 CURRENTLY READING
-- "UX for AI: A Framework for Designing AI-Driven Products"
+- "UX for AI: A Framework for Designing AI-Driven Products" by Greg Nudelman
 - "Leonardo da Vinci" by Walter Isaacson
-- Pre-ordered: "Sentient Design" — Rosenfeld Media (June 2026)
+- "Principles of Building AI Agents" by Sam Bhagwat
+- Pre-ordered: "Sentient Design" By Josh Clark — Rosenfeld Media (June 2026)
 
 CURRENTLY LISTENING (Podcasts)
 The Ramsey Show, Dwarkesh Podcast, Diary of a CEO, EntreLeadership, Stuff You Should Know, Design System Office Hours, Dive Club, Economics of Everyday Things, Lex Fridman, Joe Rogan Experience
@@ -46,6 +49,9 @@ Jazz Vibes, Snarky Puppy, Jacob Collier, Raveena, Planetshakers, MuteMath, Ander
 PERSONAL
 - Based in Miami, FL
 - Christian faith is central to his life and leadership
+- Husband to his best friend and father of two beautiful children
+- Loves running, lifting weights, hybrid training, playing soccer
+- Enjoyes travelling and the outdoors 
 - Passionate about mentorship, community, and building things that matter
 
 CONTACT
