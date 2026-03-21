@@ -1,0 +1,89 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/ui/Sidebar.astro';
+import Footer from '../../components/ui/Footer.astro';
+---
+
+<Layout title="Shazam for Artists — Jonathan Ruiz" description="Case study for Shazam for Artists by Jonathan Ruiz.">
+  <Sidebar currentPath={Astro.url.pathname} />
+
+  <div class="content-area pt-14 md:pt-0">
+    <main>
+      <section class="section-padding">
+        <div class="section-container">
+
+          <a href="/" class="back-home">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+            Back home
+          </a>
+
+          <div class="coming-soon-page">
+            <p class="coming-label">Coming soon</p>
+            <h1 class="coming-title">Shazam for Artists</h1>
+            <p class="coming-meta">2014 – 2015 · Web</p>
+            <p class="coming-body">This case study is in progress. Check back soon.</p>
+            <a href="/#work" class="back-work">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+              Back to all work
+            </a>
+          </div>
+
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  .coming-soon-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 0;
+  }
+  .coming-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .coming-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+  }
+  .coming-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-3);
+    margin-bottom: 1.5rem;
+  }
+  .coming-body {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    max-width: 32ch;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+  .back-work {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-3);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .back-work:hover {
+    color: var(--text);
+  }
+</style>

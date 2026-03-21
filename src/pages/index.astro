@@ -11,7 +11,7 @@ import ChatWidget from '../components/chat/ChatWidget.tsx';
 ---
 
 <Layout>
-  <Sidebar />
+  <Sidebar currentPath={Astro.url.pathname} />
 
   <div class="content-area pt-14 md:pt-0">
     <main>

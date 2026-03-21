@@ -160,6 +160,22 @@ button, a {
     color: var(--accent);
   }
 
+  /* Back home link */
+  .back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-3);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.15s;
+  }
+  .back-home:hover {
+    color: var(--text);
+  }
+
   /* Icon button */
   .icon-btn {
     @apply w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-150;

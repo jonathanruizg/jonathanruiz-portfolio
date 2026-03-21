@@ -4,29 +4,33 @@ const caseStudies = [
     number: '01',
     company: 'DocuSign Ink',
     subtitle: 'Design Systems · UI/UX · Sr. Design Manager',
+    year: '2024 – Present',
     tag: 'Systems',
-    href: '#',
+    href: '/work/ink',
   },
   {
     number: '02',
     company: 'Glint',
     subtitle: 'UI/UX · Employee Engagement · Research',
+    year: '2017 – 2019',
     tag: 'Product',
-    href: '#',
+    href: '/work/glint',
   },
   {
     number: '03',
     company: 'Shazam TV Experience',
     subtitle: 'UI/UX · Visual Design · Mobile',
+    year: '2015 – 2017',
     tag: 'Mobile',
-    href: '#',
+    href: '/work/shazam-tv',
   },
   {
     number: '04',
     company: 'Shazam for Artists',
     subtitle: 'Branding · Web Design · Research',
+    year: '2014 – 2015',
     tag: 'Web',
-    href: '#',
+    href: '/work/shazam-artists',
   },
 ];
 ---
@@ -43,56 +47,101 @@ const caseStudies = [
     <!-- Work list -->
     <div class="divide-y" style="border-color: var(--border);">
       {caseStudies.map((item) => (
-        <a
-          href={item.href}
-          class="group flex items-center gap-6 py-5 transition-colors duration-150 hover:no-underline"
-        >
-          <!-- Number -->
-          <span
-            class="w-10 flex-shrink-0 text-sm tabular-nums"
-            style="font-family: 'DM Mono', monospace; color: var(--text-3);"
+        <div class="work-item">
+          <span class="tooltip">Coming soon</span>
+          <a
+            href={item.href}
+            class="group flex items-center gap-6 py-5 transition-colors duration-150 hover:no-underline"
           >
-            {item.number}
-          </span>
-
-          <!-- Company + subtitle -->
-          <div class="flex-1 min-w-0">
+            <!-- Number -->
             <span
-              class="block text-base font-medium group-hover:text-accent transition-colors"
-              style="color: var(--text);"
+              class="w-10 flex-shrink-0 text-sm tabular-nums"
+              style="font-family: 'DM Mono', monospace; color: var(--text-3);"
             >
-              {item.company}
+              {item.number}
             </span>
-            <span class="block text-xs mt-0.5" style="color: var(--text-3);">
-              {item.subtitle}
-            </span>
-          </div>
 
-          <!-- Tag -->
-          <div class="hidden sm:block flex-shrink-0">
-            <span
-              class="px-2 py-0.5 text-xs rounded"
-              style="background-color: var(--bg-2); color: var(--text-3); border: 1px solid var(--border);"
+            <!-- Company + subtitle + year -->
+            <div class="flex-1 min-w-0">
+              <span
+                class="block text-base font-medium group-hover:text-accent transition-colors"
+                style="color: var(--text);"
+              >
+                {item.company}
+              </span>
+              <span class="block text-xs mt-0.5" style="color: var(--text-3);">
+                {item.subtitle}
+              </span>
+              <span class="block mt-1" style="font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-3);">
+                {item.year}
+              </span>
+            </div>
+
+            <!-- Tag -->
+            <div class="hidden sm:block flex-shrink-0">
+              <span
+                class="px-2 py-0.5 text-xs rounded"
+                style="background-color: var(--bg-2); color: var(--text-3); border: 1px solid var(--border);"
+              >
+                {item.tag}
+              </span>
+            </div>
+
+            <!-- Arrow: visible only on hover -->
+            <svg
+              class="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 -translate-y-0.5 translate-x-0 group-hover:translate-x-0.5 group-hover:-translate-y-1 transition-all duration-150"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              style="color: var(--accent);"
             >
-              {item.tag}
-            </span>
-          </div>
-
-          <!-- Arrow: visible only on hover -->
-          <svg
-            class="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 -translate-y-0.5 translate-x-0 group-hover:translate-x-0.5 group-hover:-translate-y-1 transition-all duration-150"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.75"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            style="color: var(--accent);"
-          >
-            <path d="M7 7h10v10M7 17 17 7"/>
-          </svg>
-        </a>
+              <path d="M7 7h10v10M7 17 17 7"/>
+            </svg>
+          </a>
+        </div>
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  .work-item {
+    position: relative;
+  }
+
+  .work-item .tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+    z-index: 50;
+  }
+
+  .work-item .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--border);
+  }
+
+  .work-item:hover .tooltip {
+    opacity: 1;
+  }
+</style>
