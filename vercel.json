@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/work/shazam-artists",
+      "destination": "/work/mobile-apps",
+      "permanent": true
+    }
+  ]
+}
