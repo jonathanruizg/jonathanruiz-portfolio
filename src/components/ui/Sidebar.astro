@@ -49,16 +49,16 @@ const socialLinks = [
 >
   <!-- Top: identity -->
   <div class="px-5 py-6" style="border-bottom: 1px solid var(--border);">
-    <div
-      class="w-9 h-9 rounded-lg flex items-center justify-center text-white text-xs font-semibold mb-4 flex-shrink-0"
-      style="background-color: var(--accent);"
-    >
-      JR
-    </div>
+    <img
+      src="/jru-logo-final.svg"
+      alt="Jonathan Ruiz"
+      class="mb-4 flex-shrink-0 logo-mark"
+      style="width: 32px; height: auto; display: block;"
+    />
     <p class="text-sm font-semibold leading-tight mb-0.5" style="color: var(--text);">
       Jonathan Ruiz
     </p>
-    <p class="text-xs leading-snug" style="color: var(--text-muted);">
+    <p class="text-xs leading-snug" style="color: var(--text-3);">
       Sr. Design Manager · Miami, FL
     </p>
   </div>
@@ -140,12 +140,12 @@ const socialLinks = [
   style="background-color: var(--bg); border-bottom: 1px solid var(--border);"
 >
   <div class="flex items-center gap-2.5">
-    <div
-      class="w-7 h-7 rounded-md flex items-center justify-center text-white text-[10px] font-semibold"
-      style="background-color: var(--accent);"
-    >
-      JR
-    </div>
+    <img
+      src="/jru-logo-final.svg"
+      alt="Jonathan Ruiz"
+      class="logo-mark"
+      style="width: 32px; height: auto; display: block;"
+    />
     <span class="text-sm font-semibold" style="color: var(--text);">Jonathan Ruiz</span>
   </div>
   <div class="flex items-center gap-2">
@@ -195,17 +195,24 @@ const socialLinks = [
   </div>
 </div>
 
+<style>
+  /* In dark mode, invert the logo to white */
+  :global([data-theme="dark"]) .logo-mark {
+    filter: brightness(0) invert(1);
+  }
+</style>
+
 <script>
   function applyTheme(dark: boolean) {
-    document.documentElement.classList.toggle('dark', dark);
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     localStorage.setItem('theme', dark ? 'dark' : 'light');
   }
 
   document.getElementById('theme-toggle')?.addEventListener('click', () => {
-    applyTheme(!document.documentElement.classList.contains('dark'));
+    applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
   });
   document.getElementById('theme-toggle-mobile')?.addEventListener('click', () => {
-    applyTheme(!document.documentElement.classList.contains('dark'));
+    applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
   });
 
   const drawer = document.getElementById('mobile-drawer');

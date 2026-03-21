@@ -25,11 +25,10 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
 
-    <!-- Prevent dark mode flash -->
+    <!-- Prevent dark mode flash; defaults to dark -->
     <script is:inline>
-      const s = localStorage.getItem('theme');
-      const p = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (s === 'dark' || (!s && p)) document.documentElement.classList.add('dark');
+      const saved = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
     </script>
   </head>
   <body>

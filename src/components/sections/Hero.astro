@@ -1,14 +1,17 @@
 ---
 ---
 
-<section id="hero" class="min-h-screen flex items-center section-padding pt-20 md:pt-0">
-  <div class="section-container w-full">
+<section id="hero" class="min-h-screen flex items-center section-padding pt-20 md:pt-0" style="position: relative;">
+  <!-- WebGL dot grid -->
+  <canvas id="webgl-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
+
+  <div class="section-container w-full" style="position: relative; z-index: 2;">
     <!-- Status pill -->
     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-8 border"
-      style="background-color: var(--bg-secondary); border-color: var(--border); color: var(--text-soft);">
+      style="background-color: var(--bg-2); border-color: var(--border); color: var(--text-2);">
       <span
         class="w-1.5 h-1.5 rounded-full flex-shrink-0"
-        style="background-color: #22C55E; animation: pulseDot 2s ease-in-out infinite;"
+        style="background-color: var(--color-online); animation: pulseDot 2s ease-in-out infinite;"
       ></span>
       Available for mentorship &amp; speaking
     </div>
@@ -53,9 +56,9 @@
     >
       <div
         class="px-5 py-4 rounded-lg border-l-2"
-        style="background-color: var(--bg-secondary); border-left-color: var(--accent); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);"
+        style="background-color: var(--bg-2); border-left-color: var(--accent); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);"
       >
-        <p class="text-sm leading-relaxed italic mb-1.5" style="color: var(--text-soft);">
+        <p class="text-sm leading-relaxed italic mb-1.5" style="color: var(--text-2);">
           "Whatever you do, work at it with all your heart, as working for the Lord."
         </p>
         <p class="text-xs font-medium" style="font-family: 'DM Mono', monospace; color: var(--accent);">
@@ -65,3 +68,180 @@
     </div>
   </div>
 </section>
+
+<script>
+const canvas = document.getElementById('webgl-canvas') as HTMLCanvasElement;
+const gl = canvas?.getContext('webgl');
+
+if (gl) {
+  const vsSource = `
+    attribute vec2 a_pos;
+    attribute float a_baseX;
+    attribute float a_baseY;
+    uniform vec2 u_mouse;
+    uniform vec2 u_resolution;
+    uniform float u_time;
+    varying float v_dist;
+    varying float v_alpha;
+
+    void main() {
+      vec2 base = vec2(a_baseX, a_baseY);
+      vec2 mouseNorm = u_mouse / u_resolution;
+      mouseNorm.y = 1.0 - mouseNorm.y;
+
+      float dist = distance(base, mouseNorm);
+      float influence = smoothstep(0.25, 0.0, dist);
+
+      float angle = atan(base.y - mouseNorm.y,
+                         base.x - mouseNorm.x);
+      float ripple = sin(dist * 18.0 - u_time * 3.0)
+                     * 0.012 * influence;
+      float push = influence * 0.04;
+
+      vec2 displaced = base;
+      displaced.x += cos(angle) * (push + ripple);
+      displaced.y += sin(angle) * (push + ripple);
+
+      vec2 clip = (displaced * 2.0) - 1.0;
+      clip.y *= -1.0;
+
+      gl_Position = vec4(clip, 0.0, 1.0);
+      gl_PointSize = mix(1.5, 3.5, influence)
+                     + sin(u_time + a_baseX * 10.0) * 0.3;
+      v_dist = dist;
+      v_alpha = influence;
+    }
+  `;
+
+  const fsSource = `
+    precision mediump float;
+    varying float v_dist;
+    varying float v_alpha;
+
+    void main() {
+      vec2 coord = gl_PointCoord - 0.5;
+      float r = length(coord);
+      if (r > 0.5) discard;
+
+      float baseAlpha = 0.15;
+      float hoverAlpha = 0.9;
+      float alpha = mix(baseAlpha, hoverAlpha, v_alpha);
+      alpha *= (1.0 - r * 1.8);
+
+      vec3 baseColor = vec3(0.35, 0.35, 0.34);
+      vec3 accentColor = vec3(1.0, 0.373, 0.251);
+      vec3 color = mix(baseColor, accentColor, v_alpha * 0.8);
+
+      gl_FragColor = vec4(color, alpha);
+    }
+  `;
+
+  function createShader(gl: WebGLRenderingContext, type: number, src: string) {
+    const s = gl.createShader(type)!;
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+
+  const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
+  const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+  const program = gl.createProgram()!;
+  gl.attachShader(program, vs);
+  gl.attachShader(program, fs);
+  gl.linkProgram(program);
+  gl.useProgram(program);
+
+  let cols: number, rows: number, positions: Float32Array, baseXs: Float32Array, baseYs: Float32Array;
+
+  function buildGrid() {
+    cols = Math.floor(canvas.width / 28);
+    rows = Math.floor(canvas.height / 28);
+    const count = cols * rows;
+    positions = new Float32Array(count * 2);
+    baseXs = new Float32Array(count);
+    baseYs = new Float32Array(count);
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const i = row * cols + col;
+        const nx = (col + 0.5) / cols;
+        const ny = (row + 0.5) / rows;
+        positions[i * 2] = nx;
+        positions[i * 2 + 1] = ny;
+        baseXs[i] = nx;
+        baseYs[i] = ny;
+      }
+    }
+  }
+
+  const posBuffer = gl.createBuffer()!;
+  const baseXBuffer = gl.createBuffer()!;
+  const baseYBuffer = gl.createBuffer()!;
+
+  function uploadBuffers() {
+    gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.DYNAMIC_DRAW);
+    const posLoc = gl.getAttribLocation(program, 'a_pos');
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, baseXBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, baseXs, gl.STATIC_DRAW);
+    const bxLoc = gl.getAttribLocation(program, 'a_baseX');
+    gl.enableVertexAttribArray(bxLoc);
+    gl.vertexAttribPointer(bxLoc, 1, gl.FLOAT, false, 0, 0);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, baseYBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, baseYs, gl.STATIC_DRAW);
+    const byLoc = gl.getAttribLocation(program, 'a_baseY');
+    gl.enableVertexAttribArray(byLoc);
+    gl.vertexAttribPointer(byLoc, 1, gl.FLOAT, false, 0, 0);
+  }
+
+  const mouseLoc = gl.getUniformLocation(program, 'u_mouse');
+  const resLoc = gl.getUniformLocation(program, 'u_resolution');
+  const timeLoc = gl.getUniformLocation(program, 'u_time');
+
+  let mouse = { x: -9999, y: -9999 };
+  let smoothMouse = { x: -9999, y: -9999 };
+
+  document.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    buildGrid();
+    uploadBuffers();
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+  const startTime = Date.now();
+
+  function render() {
+    const t = (Date.now() - startTime) / 1000;
+    smoothMouse.x += (mouse.x - smoothMouse.x) * 0.08;
+    smoothMouse.y += (mouse.y - smoothMouse.y) * 0.08;
+
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform2f(mouseLoc, smoothMouse.x, smoothMouse.y);
+    gl.uniform2f(resLoc, canvas.width, canvas.height);
+    gl.uniform1f(timeLoc, t);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.DYNAMIC_DRAW);
+    gl.drawArrays(gl.POINTS, 0, cols * rows);
+    requestAnimationFrame(render);
+  }
+
+  render();
+}
+</script>

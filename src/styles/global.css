@@ -8,25 +8,33 @@
 /* ─── Design tokens ─────────────────────────────────────────────────────────── */
 @layer base {
   :root {
-    --bg: #FAFAF8;
-    --bg-secondary: #F3F3F0;
-    --text: #1A1A18;
-    --text-soft: #4A4A46;
-    --text-muted: #8A8A84;
-    --accent: #435663;
-    --accent-light: #E8EEF2;
-    --border: #E8E8E4;
+    --bg: #F8F8F6;
+    --bg-2: #EFEFEC;
+    --bg-3: #E5E5E1;
+    --text: #0A0A08;
+    --text-2: #3D3D3A;
+    --text-3: #767672;
+    --accent: #FF5F40;
+    --accent-hover: #E54E30;
+    --accent-light: #FAE8E4;
+    --on-accent: #0A0A08;
+    --border: #E0E0DC;
+    --color-online: #22C55E;
   }
 
-  .dark {
-    --bg: #141618;
-    --bg-secondary: #1C1F22;
-    --text: #F0EFED;
-    --text-soft: #B8B5AF;
-    --text-muted: #6B6865;
-    --accent: #6B8A9D;
-    --accent-light: #1E2A30;
-    --border: #262A2D;
+  [data-theme="dark"] {
+    --bg: #0A0A08;
+    --bg-2: #141412;
+    --bg-3: #1C1C1A;
+    --text: #F0F0EC;
+    --text-2: #AAAAA6;
+    --text-3: #717170;
+    --accent: #FF5F40;
+    --accent-hover: #FF7A5C;
+    --accent-light: #1F0E08;
+    --on-accent: #0A0A08;
+    --border: #222220;
+    --color-online: #22C55E;
   }
 
   html {
@@ -40,18 +48,31 @@
     @apply antialiased;
     background-color: var(--bg);
     color: var(--text);
-    transition: background-color 0.25s ease, color 0.25s ease;
   }
 
   ::selection {
     background-color: var(--accent);
-    color: #FAFAF8;
+    color: var(--on-accent);
   }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+}
+
+/* ─── Smooth theme transitions ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  transition: background-color 0.3s ease,
+              border-color 0.3s ease,
+              color 0.3s ease;
+}
+
+button, a {
+  transition: opacity 0.2s ease,
+              transform 0.2s ease,
+              border-color 0.2s ease,
+              color 0.2s ease;
 }
 
 /* ─── Components ────────────────────────────────────────────────────────────── */
@@ -83,7 +104,7 @@
   .body-text {
     font-family: 'DM Sans', sans-serif;
     @apply text-base leading-relaxed;
-    color: var(--text-soft);
+    color: var(--text-2);
   }
 
   /* Divider */
@@ -94,7 +115,7 @@
 
   /* Card */
   .card {
-    background-color: var(--bg-secondary);
+    background-color: var(--bg-2);
     border: 1px solid var(--border);
     @apply rounded-xl p-6 transition-all duration-200;
   }
@@ -106,10 +127,11 @@
   .btn-primary {
     font-family: 'DM Sans', sans-serif;
     background-color: var(--accent);
-    @apply inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg text-white transition-all duration-200;
+    color: var(--on-accent);
+    @apply inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200;
   }
   .btn-primary:hover {
-    opacity: 0.88;
+    background-color: var(--accent-hover);
   }
 
   .btn-ghost {
@@ -127,7 +149,7 @@
   .nav-link {
     font-family: 'DM Sans', sans-serif;
     @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-150;
-    color: var(--text-soft);
+    color: var(--text-2);
   }
   .nav-link:hover {
     background-color: var(--accent-light);
@@ -141,7 +163,7 @@
   /* Icon button */
   .icon-btn {
     @apply w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-150;
-    color: var(--text-muted);
+    color: var(--text-3);
     border: 1px solid var(--border);
   }
   .icon-btn:hover {
@@ -166,7 +188,7 @@
 /* ─── Utilities ─────────────────────────────────────────────────────────────── */
 @layer utilities {
   .text-balance { text-wrap: balance; }
-  .bg-surface { background-color: var(--bg-secondary); }
+  .bg-surface { background-color: var(--bg-2); }
   .text-accent { color: var(--accent); }
   .border-subtle { border-color: var(--border); }
 }

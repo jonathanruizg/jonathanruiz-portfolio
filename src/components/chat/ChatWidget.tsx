@@ -49,7 +49,7 @@ function TypingDots() {
             width: '5px',
             height: '5px',
             borderRadius: '50%',
-            backgroundColor: 'var(--text-muted)',
+            backgroundColor: 'var(--text-3)',
             display: 'block',
             animation: 'dotBounce 1.2s ease-in-out infinite',
             animationDelay: `${i * 0.18}s`,
@@ -149,22 +149,22 @@ export default function ChatWidget() {
           padding: '0 1.25rem',
           height: '3rem',
           borderRadius: '9999px',
-          backgroundColor: '#435663',
-          color: '#ffffff',
+          backgroundColor: 'var(--accent)',
+          color: 'var(--on-accent)',
           border: 'none',
           cursor: 'pointer',
-          boxShadow: '0 4px 20px rgba(67,86,99,0.35)',
+          boxShadow: '0 4px 20px rgba(255,95,64,0.35)',
           transition: 'transform 0.15s ease, box-shadow 0.15s ease',
           fontSize: '0.875rem',
           fontWeight: 500,
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'scale(1.03)';
-          e.currentTarget.style.boxShadow = '0 6px 28px rgba(67,86,99,0.45)';
+          e.currentTarget.style.boxShadow = '0 6px 28px rgba(255,95,64,0.5)';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = 'scale(1)';
-          e.currentTarget.style.boxShadow = '0 4px 20px rgba(67,86,99,0.35)';
+          e.currentTarget.style.boxShadow = '0 4px 20px rgba(255,95,64,0.35)';
         }}
       >
         {/* Green pulse dot */}
@@ -174,7 +174,7 @@ export default function ChatWidget() {
             width: '100%',
             height: '100%',
             borderRadius: '50%',
-            backgroundColor: '#22C55E',
+            backgroundColor: 'var(--color-online)',
             animation: 'pingDot 1.8s cubic-bezier(0,0,0.2,1) infinite',
           }} />
           <span style={{
@@ -182,7 +182,7 @@ export default function ChatWidget() {
             width: '7px',
             height: '7px',
             borderRadius: '50%',
-            backgroundColor: '#22C55E',
+            backgroundColor: 'var(--color-online)',
           }} />
         </span>
 
@@ -219,7 +219,7 @@ export default function ChatWidget() {
               alignItems: 'center',
               gap: '0.75rem',
               padding: '1rem 1.25rem',
-              backgroundColor: 'var(--bg-secondary)',
+              backgroundColor: 'var(--bg-2)',
               borderBottom: '1px solid var(--border)',
               flexShrink: 0,
             }}
@@ -229,13 +229,13 @@ export default function ChatWidget() {
               width: '2.25rem',
               height: '2.25rem',
               borderRadius: '50%',
-              backgroundColor: '#435663',
+              backgroundColor: 'var(--accent)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexShrink: 0,
             }}>
-              <span style={{ ...fontBase, color: '#ffffff', fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.02em' }}>
+              <span style={{ ...fontBase, color: 'var(--on-accent)', fontSize: '0.65rem', fontWeight: 600, letterSpacing: '0.02em' }}>
                 JR
               </span>
             </div>
@@ -243,7 +243,7 @@ export default function ChatWidget() {
               <p style={{ ...fontBase, margin: 0, fontSize: '0.875rem', fontWeight: 600, color: 'var(--text)' }}>
                 Ask Jonathan
               </p>
-              <p style={{ ...fontBase, margin: 0, fontSize: '0.7rem', color: 'var(--text-muted)' }}>
+              <p style={{ ...fontBase, margin: 0, fontSize: '0.7rem', color: 'var(--text-3)' }}>
                 Powered by Claude
               </p>
             </div>
@@ -254,14 +254,14 @@ export default function ChatWidget() {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                color: 'var(--text-muted)',
+                color: 'var(--text-3)',
                 display: 'flex',
                 padding: '4px',
                 borderRadius: '6px',
                 transition: 'color 0.15s',
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-3)')}
             >
               <XIcon />
             </button>
@@ -291,8 +291,8 @@ export default function ChatWidget() {
                     borderRadius: msg.role === 'user'
                       ? '1rem 1rem 0.2rem 1rem'
                       : '1rem 1rem 1rem 0.2rem',
-                    backgroundColor: msg.role === 'user' ? '#435663' : 'var(--bg-secondary)',
-                    color: msg.role === 'user' ? '#ffffff' : 'var(--text)',
+                    backgroundColor: msg.role === 'user' ? 'var(--accent)' : 'var(--bg-2)',
+                    color: msg.role === 'user' ? 'var(--on-accent)' : 'var(--text)',
                     fontSize: '0.875rem',
                     lineHeight: 1.55,
                     border: msg.role === 'assistant' ? '1px solid var(--border)' : 'none',
@@ -309,7 +309,7 @@ export default function ChatWidget() {
                 <div style={{
                   padding: '0.625rem 0.875rem',
                   borderRadius: '1rem 1rem 1rem 0.2rem',
-                  backgroundColor: 'var(--bg-secondary)',
+                  backgroundColor: 'var(--bg-2)',
                   border: '1px solid var(--border)',
                 }}>
                   <TypingDots />
@@ -331,17 +331,17 @@ export default function ChatWidget() {
                       border: '1px solid var(--border)',
                       borderRadius: '9999px',
                       backgroundColor: 'transparent',
-                      color: 'var(--text-soft)',
+                      color: 'var(--text-2)',
                       cursor: 'pointer',
                       transition: 'border-color 0.15s, color 0.15s',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = '#435663';
-                      e.currentTarget.style.color = '#435663';
+                      e.currentTarget.style.borderColor = 'var(--accent)';
+                      e.currentTarget.style.color = 'var(--accent)';
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.borderColor = 'var(--border)';
-                      e.currentTarget.style.color = 'var(--text-soft)';
+                      e.currentTarget.style.color = 'var(--text-2)';
                     }}
                   >
                     {s}
@@ -379,11 +379,11 @@ export default function ChatWidget() {
                 fontSize: '0.875rem',
                 borderRadius: '0.5rem',
                 border: '1px solid var(--border)',
-                backgroundColor: 'var(--bg-secondary)',
+                backgroundColor: 'var(--bg-2)',
                 color: 'var(--text)',
                 outline: 'none',
               }}
-              onFocus={(e) => (e.currentTarget.style.borderColor = '#435663')}
+              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--accent)')}
               onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--border)')}
             />
             <button
@@ -396,8 +396,8 @@ export default function ChatWidget() {
                 borderRadius: '0.5rem',
                 border: 'none',
                 cursor: input.trim() && !loading ? 'pointer' : 'not-allowed',
-                backgroundColor: input.trim() && !loading ? '#435663' : 'var(--border)',
-                color: '#ffffff',
+                backgroundColor: input.trim() && !loading ? 'var(--accent)' : 'var(--border)',
+                color: input.trim() && !loading ? 'var(--on-accent)' : 'var(--text-3)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
