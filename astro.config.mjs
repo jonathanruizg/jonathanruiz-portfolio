@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import react from '@astrojs/react';
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   integrations: [
@@ -10,8 +10,6 @@ export default defineConfig({
     }),
     react(),
   ],
-  // Node adapter enables the /api/chat SSR route.
-  // Swap for @astrojs/vercel or @astrojs/netlify when deploying.
-  adapter: node({ mode: 'standalone' }),
-  output: 'static',
+  adapter: vercel(),
+  output: 'server',
 });

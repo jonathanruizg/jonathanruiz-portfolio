@@ -18,3 +18,4 @@ dist/
 
 # Leftover scaffold attempt
 cyan-comet/
+.vercel
