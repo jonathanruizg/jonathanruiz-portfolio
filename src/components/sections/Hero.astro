@@ -121,21 +121,20 @@ if (gl) {
   `;
   const fsSource = `
     precision mediump float;
-    varying float v_dist;
     varying float v_alpha;
     uniform float u_isDark;
     void main() {
       vec2 coord = gl_PointCoord - 0.5;
       float r = length(coord);
       if (r > 0.5) discard;
-      float baseAlpha = mix(0.25, 0.18, u_isDark);
+      float baseAlpha = mix(0.3, 0.15, u_isDark);
       float alpha = mix(baseAlpha, 0.9, v_alpha);
-      alpha *= (1.0 - r * 1.6);
-      vec3 baseDark = vec3(0.38, 0.38, 0.36);
-      vec3 baseLight = vec3(0.55, 0.53, 0.50);
+      alpha *= (1.0 - r * 1.5);
+      vec3 baseDark = vec3(0.4, 0.4, 0.38);
+      vec3 baseLight = vec3(0.45, 0.43, 0.41);
       vec3 baseColor = mix(baseLight, baseDark, u_isDark);
-      vec3 accentColor = vec3(1.0, 0.373, 0.251);
-      vec3 color = mix(baseColor, accentColor, v_alpha * 0.85);
+      vec3 accent = vec3(1.0, 0.373, 0.251);
+      vec3 color = mix(baseColor, accent, v_alpha * 0.9);
       gl_FragColor = vec4(color, alpha);
     }
   `;
@@ -198,19 +197,24 @@ if (gl) {
   const isDarkLoc = gl.getUniformLocation(program, 'u_isDark');
   let mouse = { x: -9999, y: -9999 };
   let smoothMouse = { x: -9999, y: -9999 };
-  document.addEventListener('mousemove', (e) => {
+  canvas.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
   });
+  canvas.addEventListener('mouseleave', () => {
+    mouse.x = -9999;
+    mouse.y = -9999;
+  });
   function resize() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
     gl.viewport(0, 0, canvas.width, canvas.height);
     buildGrid();
     uploadBuffers();
   }
-  resize();
+  setTimeout(resize, 100);
   window.addEventListener('resize', resize);
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
