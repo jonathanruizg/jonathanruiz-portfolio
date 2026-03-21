@@ -2,107 +2,52 @@
 interface Props {
   currentPath?: string;
 }
-
 const { currentPath = '/' } = Astro.props;
 
-const exploreLinks = [
-  {
-    label: 'Home',
-    href: '/',
-    icon: `<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>`,
-    section: null,
-    isHome: true,
-  },
-  {
-    label: 'About',
-    href: '/about',
-    icon: `<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
-    section: null,
-    isHome: false,
-  },
-  {
-    label: 'Work',
-    href: '/#work',
-    icon: `<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>`,
-    section: 'work',
-    isHome: false,
-  },
-  {
-    label: 'Community',
-    href: '/#community',
-    icon: `<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
-    section: 'community',
-    isHome: false,
-  },
-  {
-    label: 'Vibe Coding',
-    href: '/#vibe-coding',
-    icon: `<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>`,
-    section: 'vibe-coding',
-    isHome: false,
-  },
+const isWork       = currentPath.startsWith('/work');
+const isAbout      = currentPath.startsWith('/about');
+const isLeadership = currentPath.startsWith('/leadership');
+
+const navLinks = [
+  { label: 'Work',       href: '/work' },
+  { label: 'About',      href: '/about' },
+  { label: 'Leadership', href: '/leadership' },
 ];
 
-const standaloneLinks = [
-  {
-    label: 'Leadership',
-    href: '/leadership',
-    icon: `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>`,
-  },
-  {
-    label: 'Styleguide',
-    href: '/styleguide',
-    icon: `<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>`,
-  },
-];
+function isActive(href: string) {
+  if (href === '/work')       return isWork;
+  if (href === '/about')      return isAbout;
+  if (href === '/leadership') return isLeadership;
+  return false;
+}
 
 const socialLinks = [
   {
     label: 'LinkedIn',
-    href: 'https://linkedin.com/in/jonaruiz',
+    href: 'https://www.linkedin.com/in/jonaruiz/',
     icon: `<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>`,
-  },
-  {
-    label: 'Dribbble',
-    href: 'https://dribbble.com/jonathanruiz',
-    icon: `<circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/>`,
   },
   {
     label: 'Email',
     href: 'mailto:jonathanruizg@me.com',
     icon: `<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>`,
   },
+  {
+    label: 'Dribbble',
+    href: 'https://dribbble.com/Jonathanruiz',
+    icon: `<circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/>`,
+  },
 ];
-
-const isHome = currentPath === '/';
-const isAbout = currentPath.startsWith('/about');
-const isLeadership = currentPath.startsWith('/leadership');
-const isStyleguide = currentPath.startsWith('/styleguide');
-
-function exploreActive(link: typeof exploreLinks[number]): boolean {
-  if (link.isHome) return isHome;
-  if (link.href === '/about') return isAbout;
-  return false; // section links are handled by scroll JS
-}
-
-function standaloneActive(link: typeof standaloneLinks[number]): boolean {
-  if (link.href === '/leadership') return isLeadership;
-  if (link.href === '/styleguide') return isStyleguide;
-  return false;
-}
 ---
 
-<!-- Desktop sidebar -->
-<aside
-  id="sidebar"
-  class="fixed left-0 top-0 h-screen w-[240px] flex flex-col z-40 hidden md:flex"
-  style="background-color: var(--bg); border-right: 1px solid var(--border);"
->
-  <!-- Top: identity (logo link) -->
-  <div style="border-bottom: 1px solid var(--border);">
-    <a href="/" class="logo-link px-5 py-6">
-      <img src="/JRU-black.svg" alt="Jonathan Ruiz" class="logo-img logo-light" width="32" />
-      <img src="/JRU-white.svg" alt="Jonathan Ruiz" class="logo-img logo-dark" width="32" />
+<!-- ── Desktop sidebar ── -->
+<aside class="sidebar">
+
+  <!-- Logo -->
+  <div class="sidebar-section">
+    <a href="/" class="logo-link">
+      <img src="/JRU-black.svg" alt="JR" class="logo-img logo-light" />
+      <img src="/JRU-white.svg" alt="JR" class="logo-img logo-dark" />
       <div class="logo-text">
         <span class="logo-name">Jonathan Ruiz</span>
         <span class="logo-title">Design Manager · Miami, FL</span>
@@ -110,60 +55,14 @@ function standaloneActive(link: typeof standaloneLinks[number]): boolean {
     </a>
   </div>
 
-  <!-- Middle: nav -->
-  <nav class="flex-1 px-3 py-4 overflow-y-auto">
-    <!-- Zone 1: Explore -->
-    <p class="zone-label px-2 mb-2">Explore</p>
-    <ul class="space-y-0.5 mb-4">
-      {exploreLinks.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class={`nav-link${exploreActive(link) ? ' nav-link-active' : ''}`}
-            {...(link.section ? { 'data-section': link.section } : {})}
-            {...(link.isHome ? { 'data-home': 'true' } : {})}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.75"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              set:html={link.icon}
-            />
-            {link.label}
-          </a>
-        </li>
-      ))}
-    </ul>
+  <div class="sidebar-divider"></div>
 
-    <!-- Divider -->
-    <div style="height: 1px; background-color: var(--border); margin: 0 0.5rem 1rem;"></div>
-
-    <!-- Zone 2: Standalone links -->
-    <ul class="space-y-0.5">
-      {standaloneLinks.map((link) => (
+  <!-- Nav -->
+  <nav class="sidebar-section">
+    <ul>
+      {navLinks.map(link => (
         <li>
-          <a
-            href={link.href}
-            class={`nav-link${standaloneActive(link) ? ' nav-link-active' : ''}`}
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.75"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              set:html={link.icon}
-            />
+          <a href={link.href} class={isActive(link.href) ? 'active' : ''}>
             {link.label}
           </a>
         </li>
@@ -171,145 +70,243 @@ function standaloneActive(link: typeof standaloneLinks[number]): boolean {
     </ul>
   </nav>
 
-  <!-- Bottom: socials + dark mode -->
-  <div class="px-5 pb-5 pt-4 space-y-4" style="border-top: 1px solid var(--border);">
-    <div class="flex items-center gap-1.5">
-      {socialLinks.map((s) => (
-        <a
-          href={s.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="icon-btn"
-          aria-label={s.label}
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.75"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={s.icon}
-          />
+  <!-- Spacer -->
+  <div style="flex: 1;"></div>
+
+  <div class="sidebar-divider"></div>
+
+  <!-- Social + Theme -->
+  <div class="sidebar-section sidebar-bottom">
+    <div class="sidebar-social">
+      {socialLinks.map(s => (
+        <a href={s.href} target={s.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" title={s.label}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
         </a>
       ))}
-
-      <!-- Dark mode toggle -->
-      <button id="theme-toggle" class="icon-btn ml-auto" aria-label="Toggle dark mode">
-        <svg id="icon-sun" class="hidden dark:block w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="4"/>
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-        </svg>
-        <svg id="icon-moon" class="block dark:hidden w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-        </svg>
-      </button>
     </div>
-  </div>
-</aside>
 
-<!-- Mobile top bar -->
-<div
-  class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-14"
-  style="background-color: var(--bg); border-bottom: 1px solid var(--border);"
->
-  <a href="/" class="logo-link">
-    <img src="/JRU-black.svg" alt="Jonathan Ruiz" class="logo-img logo-light" width="32" />
-    <img src="/JRU-white.svg" alt="Jonathan Ruiz" class="logo-img logo-dark" width="32" />
-    <span class="logo-name">Jonathan Ruiz</span>
-  </a>
-  <div class="flex items-center gap-2">
-    <button id="theme-toggle-mobile" class="icon-btn" aria-label="Toggle dark mode">
-      <svg id="mob-sun" class="hidden dark:block w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
+      <!-- Moon: shown in light mode -->
+      <svg id="icon-moon" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+      </svg>
+      <!-- Sun: shown in dark mode -->
+      <svg id="icon-sun" class="theme-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="4"/>
         <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
       </svg>
-      <svg id="mob-moon" class="block dark:hidden w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-      </svg>
-    </button>
-    <button id="mobile-menu-btn" class="icon-btn" aria-label="Open menu">
-      <svg class="w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 12h18M3 6h18M3 18h18"/>
-      </svg>
     </button>
   </div>
-</div>
 
-<!-- Mobile drawer -->
-<div
-  id="mobile-drawer"
-  class="md:hidden fixed inset-0 z-40 hidden"
-  style="background-color: var(--bg);"
->
-  <div class="pt-20 px-5">
-    <nav>
-      <p class="zone-label mb-2">Explore</p>
-      <ul class="space-y-1 mb-4">
-        {exploreLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class={`nav-link text-base py-3 mobile-nav-link${exploreActive(link) ? ' nav-link-active' : ''}`}
-              {...(link.section ? { 'data-section': link.section } : {})}
-              {...(link.isHome ? { 'data-home': 'true' } : {})}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={link.icon} />
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-      <div style="height: 1px; background-color: var(--border); margin-bottom: 1rem;"></div>
-      <ul class="space-y-1">
-        {standaloneLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class={`nav-link text-base py-3 mobile-nav-link${standaloneActive(link) ? ' nav-link-active' : ''}`}
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={link.icon} />
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-    <div class="mt-8 flex items-center gap-2">
-      {socialLinks.map((s) => (
-        <a href={s.href} target="_blank" rel="noopener" class="icon-btn" aria-label={s.label}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={s.icon} />
-        </a>
+</aside>
+
+<!-- ── Mobile top bar ── -->
+<div class="mobile-bar">
+  <a href="/" class="logo-link">
+    <img src="/JRU-black.svg" alt="JR" class="logo-img logo-light" />
+    <img src="/JRU-white.svg" alt="JR" class="logo-img logo-dark" />
+    <span class="logo-name">Jonathan Ruiz</span>
+  </a>
+
+  <div class="mobile-bar-right">
+    <nav class="mobile-nav">
+      {navLinks.map(link => (
+        <a href={link.href} class={isActive(link.href) ? 'active' : ''}>{link.label}</a>
       ))}
-    </div>
+    </nav>
+    <button id="theme-toggle-mobile" class="theme-btn" aria-label="Toggle theme">
+      <svg id="mob-moon" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+      </svg>
+      <svg id="mob-sun" class="theme-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+      </svg>
+    </button>
   </div>
 </div>
 
 <style>
-  .zone-label {
-    font-family: 'DM Mono', monospace;
-    text-transform: uppercase;
-    font-size: 0.58rem;
-    color: var(--text-3);
-    letter-spacing: 0.06em;
-    padding-left: 0.5rem;
+  /* ── Sidebar (desktop) ── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    width: 220px;
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    background-color: var(--bg);
+    border-right: 1px solid var(--border);
+    z-index: 40;
+  }
+  @media (min-width: 768px) {
+    .sidebar { display: flex; }
   }
 
-  .nav-link-active {
-    background-color: var(--accent-light) !important;
-    color: var(--accent) !important;
+  .sidebar-section { padding: 0 0.1rem; }
+  .sidebar-divider {
+    height: 1px;
+    background-color: var(--border);
+    margin: 1rem 0;
+  }
+
+  /* ── Nav ── */
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  nav a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-3);
+    text-decoration: none;
+    padding: 0.35rem 0.6rem;
+    border-radius: 6px;
+    transition: color 0.15s, background 0.15s;
+    display: block;
+  }
+  nav a:hover {
+    color: var(--text);
+    background: var(--bg-2);
+  }
+  nav a.active {
+    color: var(--accent);
     font-weight: 500;
   }
+
+  /* ── Social + Theme ── */
+  .sidebar-bottom {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .sidebar-social {
+    display: flex;
+    gap: 0.25rem;
+    flex: 1;
+  }
+  .sidebar-social a {
+    color: var(--text-3);
+    display: flex;
+    align-items: center;
+    padding: 0.3rem;
+    border-radius: 4px;
+    transition: color 0.15s;
+    text-decoration: none;
+  }
+  .sidebar-social a:hover { color: var(--text); }
+
+  .theme-btn {
+    background: none;
+    border: none;
+    color: var(--text-3);
+    cursor: pointer;
+    padding: 0.3rem;
+    border-radius: 6px;
+    transition: color 0.15s;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .theme-btn:hover { color: var(--text); }
+  .theme-icon { width: 15px; height: 15px; }
+  .hidden { display: none !important; }
+
+  /* ── Logo ── */
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    color: inherit;
+    padding: 0.25rem 0;
+    transition: opacity 0.2s;
+  }
+  .logo-link:hover { opacity: 0.75; }
+
+  .logo-img { width: 28px; height: auto; flex-shrink: 0; }
+  .logo-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    display: block;
+  }
+  .logo-title {
+    font-size: 0.65rem;
+    color: var(--text-3);
+    font-weight: 400;
+    display: block;
+    margin-top: 0.1rem;
+  }
+
+  /* Theme-aware logo swap */
+  .logo-dark { display: none; }
+  .logo-light { display: block; }
+  :global([data-theme="dark"]) .logo-dark  { display: block; }
+  :global([data-theme="dark"]) .logo-light { display: none;  }
+
+  /* ── Mobile top bar ── */
+  .mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    height: 52px;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background-color: var(--bg);
+    border-bottom: 1px solid var(--border);
+    z-index: 50;
+  }
+  @media (min-width: 768px) {
+    .mobile-bar { display: none; }
+  }
+
+  .mobile-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .mobile-nav {
+    display: flex;
+    gap: 0.15rem;
+  }
+  .mobile-nav a {
+    font-size: 0.8rem;
+    color: var(--text-3);
+    text-decoration: none;
+    padding: 0.25rem 0.45rem;
+    border-radius: 5px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .mobile-nav a:hover { color: var(--text); background: var(--bg-2); }
+  .mobile-nav a.active { color: var(--accent); font-weight: 500; }
 </style>
 
 <script>
   function applyTheme(dark: boolean) {
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     localStorage.setItem('theme', dark ? 'dark' : 'light');
+    updateIcons(dark);
   }
+
+  function updateIcons(dark: boolean) {
+    document.getElementById('icon-moon')?.classList.toggle('hidden', dark);
+    document.getElementById('icon-sun')?.classList.toggle('hidden', !dark);
+    document.getElementById('mob-moon')?.classList.toggle('hidden', dark);
+    document.getElementById('mob-sun')?.classList.toggle('hidden', !dark);
+  }
+
+  // Sync icons on load
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  updateIcons(isDark);
 
   document.getElementById('theme-toggle')?.addEventListener('click', () => {
     applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
@@ -317,42 +314,4 @@ function standaloneActive(link: typeof standaloneLinks[number]): boolean {
   document.getElementById('theme-toggle-mobile')?.addEventListener('click', () => {
     applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
   });
-
-  const drawer = document.getElementById('mobile-drawer');
-  document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-    drawer?.classList.toggle('hidden');
-  });
-  document.querySelectorAll('.mobile-nav-link').forEach((link) => {
-    link.addEventListener('click', () => drawer?.classList.add('hidden'));
-  });
-
-  // Scroll-based active highlighting — only on home page
-  if (window.location.pathname === '/') {
-    const sections = ['work', 'community', 'vibe-coding'];
-    const sectionLinks = document.querySelectorAll('[data-section]');
-    const homeLink = document.querySelector('[data-home]');
-
-    function updateActive() {
-      let active: string | null = null;
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= 120) {
-          active = id;
-        }
-      }
-
-      sectionLinks.forEach((link) => {
-        const section = link.getAttribute('data-section');
-        link.classList.toggle('nav-link-active', section === active);
-      });
-
-      // Home link is active when no section is in view
-      if (homeLink) {
-        homeLink.classList.toggle('nav-link-active', active === null);
-      }
-    }
-
-    window.addEventListener('scroll', updateActive, { passive: true });
-    updateActive();
-  }
 </script>
