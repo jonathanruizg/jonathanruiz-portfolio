@@ -74,6 +74,18 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    const cleanMessages = messages.map(msg => ({
+      role: msg.role,
+      content: typeof msg.content === 'string'
+        ? msg.content
+        : Array.isArray(msg.content)
+          ? msg.content
+              .filter(b => b.type === 'text')
+              .map(b => b.text)
+              .join(' ')
+          : String(msg.content)
+    })).filter(msg => msg.content.trim().length > 0);
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -85,7 +97,7 @@ export const POST: APIRoute = async ({ request }) => {
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 300,
         system: SYSTEM_PROMPT,
-        messages: messages.slice(-10), // keep last 10 messages for context
+        messages: cleanMessages.slice(-10), // keep last 10 messages for context
       }),
     });
 
