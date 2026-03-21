@@ -4,16 +4,19 @@ const cards = [
     title: 'Friends of Figma Miami',
     description: 'Co-leading the Miami chapter — organizing events, workshops, and creative jams for the local design community.',
     icon: `<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/>`,
+    href: 'https://friends.figma.com/miami/',
   },
   {
-  title: 'BrainStation Educator',
-  description: "I've taught product design and UX fundamentals to the next generation of designers entering the industry.",
-  icon: `<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>`,
+    title: 'BrainStation Educator',
+    description: "I've taught product design and UX fundamentals to the next generation of designers entering the industry.",
+    icon: `<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>`,
+    href: 'https://brainstation.io/course/online/product-design',
   },
   {
-  title: 'Mentorship',
-  description: "Through ADP List, I've mentored early-career designers, done portfolio reviews, given career guidance and have had real talk about the industry.",
-  icon: `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>`,
+    title: 'Mentorship',
+    description: "Through ADP List, I've mentored early-career designers, done portfolio reviews, given career guidance and have had real talk about the industry.",
+    icon: `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>`,
+    href: 'https://adplist.org/mentors/jonathan-ruiz',
   },
 ];
 ---
@@ -32,7 +35,7 @@ const cards = [
 
     <div class="grid sm:grid-cols-2 gap-4">
       {cards.map((card) => (
-        <div class="card group">
+        <a href={card.href} target="_blank" rel="noopener noreferrer" class="card group" style="text-decoration: none; display: block;">
           <!-- Icon -->
           <div
             class="w-9 h-9 rounded-lg flex items-center justify-center mb-4 flex-shrink-0 transition-colors duration-150"
@@ -58,7 +61,7 @@ const cards = [
           <p class="text-sm leading-relaxed" style="color: var(--text-2);">
             {card.description}
           </p>
-        </div>
+        </a>
       ))}
     </div>
   </div>
