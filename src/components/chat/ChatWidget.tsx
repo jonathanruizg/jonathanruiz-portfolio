@@ -115,7 +115,7 @@ export default function ChatWidget() {
         {
           id: crypto.randomUUID(),
           role: 'assistant',
-          content: "Sorry, I'm having trouble right now. Reach Jonathan directly at hello@jonathanruiz.dev",
+          content: "Sorry, I'm having trouble right now. Reach Jonathan directly at jonathanruizg@me.com",
         },
       ]);
     } finally {

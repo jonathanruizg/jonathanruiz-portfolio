@@ -1,0 +1,126 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/ui/Sidebar.astro';
+import Footer from '../components/ui/Footer.astro';
+import ChatWidget from '../components/chat/ChatWidget.tsx';
+
+const principles = [
+  {
+    number: '01',
+    title: 'Lead by doing',
+    body: "I don't ask my team to do anything I'm not willing to do myself. The best leaders stay close to the work — not micromanaging, but genuinely engaged. When you lead by example, you earn trust that titles alone never could.",
+    icon: `<path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14.5c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.83 8 21v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5H21c.83 0 1.5.67 1.5 1.5S21.83 16 21 16h-5.5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8H3c-.83 0-1.5.67-1.5 1.5S2.17 11 3 11h5.5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/>`,
+  },
+  {
+    number: '02',
+    title: 'Put others first',
+    body: "My job as a manager is to clear the path — remove blockers, provide context, give feedback, and create the conditions where great work happens. The team's success is the score that matters. When they win, we all win.",
+    icon: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
+  },
+  {
+    number: '03',
+    title: 'The whole is greater',
+    body: "The most effective teams I've been part of had something in common: ego took a back seat to craft. I actively build cultures where ideas beat titles, where a junior designer's insight can shift the whole direction — because it should.",
+    icon: `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>`,
+  },
+  {
+    number: '04',
+    title: 'Humble confidence',
+    body: "Confidence without humility becomes arrogance. Humility without confidence becomes passivity. I try to hold both — knowing what I bring to the table, while staying genuinely curious and open to being wrong. The best feedback I ever got came from people I disagreed with.",
+    icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+  },
+  {
+    number: '05',
+    title: 'Merit and hard work',
+    body: "I believe in earning your place — through the quality of your thinking, the care you bring to your craft, and the consistency of your effort. There are no shortcuts worth taking. The work speaks for itself when you let it.",
+    icon: `<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>`,
+  },
+];
+---
+
+<Layout title="Leadership — Jonathan Ruiz" description="Jonathan Ruiz's leadership philosophy: servant leadership, putting others first, and building cultures where great work happens.">
+  <Sidebar />
+
+  <div class="content-area pt-14 md:pt-0">
+    <main>
+      <section class="section-padding">
+        <div class="section-container">
+
+          <!-- Header -->
+          <div class="mb-16">
+            <p class="label mb-3">Leadership</p>
+            <h1 class="section-title mb-5" style="font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em;">
+              How I think about<br />leading people.
+            </h1>
+            <p class="body-text max-w-lg">
+              Leadership isn't a title — it's a practice. These are the principles that guide how I show up for my team, my peers, and the people I mentor.
+            </p>
+          </div>
+
+          <!-- Principles list -->
+          <div class="divide-y" style="border-color: var(--border);">
+            {principles.map((p) => (
+              <div class="py-10 grid md:grid-cols-[80px_1fr] gap-6 items-start">
+                <!-- Number + icon -->
+                <div class="flex md:flex-col items-center md:items-start gap-3">
+                  <span
+                    class="text-sm tabular-nums"
+                    style="font-family: 'DM Mono', monospace; color: var(--text-3);"
+                  >
+                    {p.number}
+                  </span>
+                  <div
+                    class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style="background-color: var(--accent-light);"
+                  >
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      style="color: var(--accent);"
+                      set:html={p.icon}
+                    />
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <div>
+                  <h2 class="text-xl font-semibold mb-3" style="color: var(--text); letter-spacing: -0.01em;">
+                    {p.title}
+                  </h2>
+                  <p class="body-text max-w-prose leading-relaxed">
+                    {p.body}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Scripture card -->
+          <div class="mt-16 max-w-lg">
+            <div
+              class="px-5 py-4 rounded-lg border-l-2"
+              style="background-color: var(--bg-2); border-left-color: var(--accent); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);"
+            >
+              <p class="text-sm leading-relaxed italic mb-1.5" style="color: var(--text-2);">
+                "Whoever wants to become great among you must be your servant."
+              </p>
+              <p class="text-xs font-medium" style="font-family: 'DM Mono', monospace; color: var(--accent);">
+                — Matthew 20:26
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </div>
+
+  <ChatWidget client:only="react" />
+</Layout>

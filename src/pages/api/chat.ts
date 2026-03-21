@@ -32,6 +32,17 @@ Jonathan is a Design Manager who builds. He created this website using Astro, Ta
 GOALS
 Jonathan is open to Director of Product Design opportunities — internally at Docusign or externally. He wants to be known for: design team culture and mentorship, AI and design intersection, cross-functional leadership, and community impact.
 
+CURRENTLY READING
+- "UX for AI: A Framework for Designing AI-Driven Products"
+- "Leonardo da Vinci" by Walter Isaacson
+- Pre-ordered: "Sentient Design" — Rosenfeld Media (June 2026)
+
+CURRENTLY LISTENING (Podcasts)
+The Ramsey Show, Dwarkesh Podcast, Diary of a CEO, EntreLeadership, Stuff You Should Know, Design System Office Hours, Dive Club, Economics of Everyday Things, Lex Fridman, Joe Rogan Experience
+
+MUSIC
+Jazz Vibes, Snarky Puppy, Jacob Collier, Raveena, Planetshakers, MuteMath, Anderson .Paak, Tom Misch, Vulfpeck, FKJ
+
 PERSONAL
 - Based in Miami, FL
 - Christian faith is central to his life and leadership
@@ -92,7 +103,7 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (err) {
     console.error('Chat API error:', err);
     return new Response(
-      JSON.stringify({ content: "Something went wrong. Please reach out at hello@jonathanruiz.dev" }),
+      JSON.stringify({ content: "Something went wrong. Please reach out at jonathanruizg@me.com" }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   }

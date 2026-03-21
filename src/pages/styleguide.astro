@@ -1,0 +1,439 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/ui/Sidebar.astro';
+import Footer from '../components/ui/Footer.astro';
+
+const sections = [
+  { id: 'typography', label: 'Typography' },
+  { id: 'colors', label: 'Colors' },
+  { id: 'buttons', label: 'Buttons' },
+  { id: 'tags', label: 'Tags' },
+  { id: 'icons', label: 'Icons' },
+  { id: 'spacing', label: 'Spacing' },
+  { id: 'radius', label: 'Border Radius' },
+  { id: 'elevation', label: 'Elevation' },
+  { id: 'components', label: 'Components' },
+];
+
+const colorTokens = [
+  { token: '--bg',           label: 'Background',        light: '#F8F8F6', dark: '#0A0A08' },
+  { token: '--bg-2',         label: 'Surface',           light: '#EFEFEC', dark: '#141412' },
+  { token: '--bg-3',         label: 'Surface Raised',    light: '#E5E5E1', dark: '#1C1C1A' },
+  { token: '--text',         label: 'Text Primary',      light: '#0A0A08', dark: '#F0F0EC' },
+  { token: '--text-2',       label: 'Text Secondary',    light: '#3D3D3A', dark: '#AAAAA6' },
+  { token: '--text-3',       label: 'Text Tertiary',     light: '#767672', dark: '#717170' },
+  { token: '--accent',       label: 'Accent',            light: '#FF5F40', dark: '#FF5F40' },
+  { token: '--accent-hover', label: 'Accent Hover',      light: '#E54E30', dark: '#FF7A5C' },
+  { token: '--accent-light', label: 'Accent Tint',       light: '#FAE8E4', dark: '#1F0E08' },
+  { token: '--on-accent',    label: 'On Accent',         light: '#0A0A08', dark: '#0A0A08' },
+  { token: '--border',       label: 'Border',            light: '#E0E0DC', dark: '#222220' },
+  { token: '--color-online', label: 'Online',            light: '#22C55E', dark: '#22C55E' },
+];
+
+const radiusTokens = [
+  { label: 'sm', value: '0.375rem / 6px',  class: 'rounded' },
+  { label: 'md', value: '0.5rem / 8px',    class: 'rounded-lg' },
+  { label: 'lg', value: '0.75rem / 12px',  class: 'rounded-xl' },
+  { label: 'full', value: '9999px',        class: 'rounded-full' },
+];
+
+const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
+---
+
+<Layout title="Styleguide — Jonathan Ruiz" description="Design system reference for jonathanruiz.dev — tokens, typography, components, and more.">
+  <Sidebar />
+
+  <div class="content-area pt-14 md:pt-0">
+    <main>
+      <div class="section-padding">
+        <div class="section-container">
+
+          <!-- Page header -->
+          <div class="mb-12">
+            <p class="label mb-3">Styleguide</p>
+            <h1
+              class="section-title mb-4"
+              style="font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em;"
+            >
+              Design system reference
+            </h1>
+            <p class="body-text max-w-md">
+              All tokens, components, and patterns used across this site. Light and dark mode compatible.
+            </p>
+          </div>
+
+          <div class="flex gap-10 items-start">
+
+            <!-- Jump-link sidebar (desktop only) -->
+            <aside class="hidden lg:block w-44 flex-shrink-0 sticky top-8">
+              <p class="label mb-3 text-[10px]">Sections</p>
+              <nav>
+                <ul id="sg-nav" class="space-y-0.5">
+                  {sections.map((s) => (
+                    <li>
+                      <a
+                        href={`#${s.id}`}
+                        data-sg-link={s.id}
+                        class="block px-2.5 py-1.5 text-xs rounded-md transition-colors duration-150"
+                        style="color: var(--text-3); font-family: 'DM Mono', monospace;"
+                      >
+                        {s.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </aside>
+
+            <!-- Main content -->
+            <div class="flex-1 min-w-0 space-y-16">
+
+              <!-- ── Typography ────────────────────────────────── -->
+              <section id="typography">
+                <h2 class="sg-section-title">Typography</h2>
+                <div class="space-y-6 mt-6">
+                  <div class="card">
+                    <p class="label mb-3 text-[10px]">DM Sans — Primary</p>
+                    <div class="space-y-4">
+                      <div>
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Semibold 600 · clamp(2.25rem, 5vw, 3.5rem)</p>
+                        <p class="font-semibold leading-tight" style="font-size: clamp(2rem, 4vw, 3rem); color: var(--text); letter-spacing: -0.02em;">Display Headline</p>
+                      </div>
+                      <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Semibold 600 · 1.75rem</p>
+                        <p class="text-2xl font-semibold" style="color: var(--text); letter-spacing: -0.015em;">Section Title</p>
+                      </div>
+                      <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Medium 500 · 1rem</p>
+                        <p class="text-base font-medium" style="color: var(--text);">Body Medium — for labels and emphasis</p>
+                      </div>
+                      <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular 400 · 1rem · leading-relaxed</p>
+                        <p class="body-text">Body text — used for descriptions and prose. Designed to be readable at comfortable line lengths.</p>
+                      </div>
+                      <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular 400 · 0.875rem</p>
+                        <p class="text-sm" style="color: var(--text-2);">Small text — metadata, captions, supporting info</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <p class="label mb-3 text-[10px]">DM Mono — Secondary</p>
+                    <div class="space-y-4">
+                      <div>
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular · 11px · tracking-wide · uppercase</p>
+                        <p class="label">Section Label</p>
+                      </div>
+                      <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular · 12px</p>
+                        <p style="font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--text-2);">Code, tags, metadata, numbers</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ── Colors ─────────────────────────────────────── -->
+              <section id="colors">
+                <h2 class="sg-section-title">Colors</h2>
+                <div class="mt-6 grid sm:grid-cols-2 gap-3">
+                  {colorTokens.map((c) => (
+                    <div class="card flex items-center gap-4 p-4">
+                      <div
+                        class="w-10 h-10 rounded-lg flex-shrink-0 border"
+                        style={`background-color: var(${c.token}); border-color: var(--border);`}
+                      />
+                      <div class="min-w-0">
+                        <p class="text-xs font-medium mb-0.5" style="color: var(--text);">{c.label}</p>
+                        <p class="text-[11px] truncate" style="font-family: 'DM Mono', monospace; color: var(--accent);">{c.token}</p>
+                        <p class="text-[10px] mt-0.5" style="font-family: 'DM Mono', monospace; color: var(--text-3);">
+                          L: {c.light} · D: {c.dark}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <!-- ── Buttons ────────────────────────────────────── -->
+              <section id="buttons">
+                <h2 class="sg-section-title">Buttons</h2>
+                <div class="card mt-6">
+                  <div class="flex flex-wrap gap-4 items-center">
+                    <a href="#" class="btn-primary">Primary button</a>
+                    <a href="#" class="btn-ghost">Ghost button</a>
+                    <a href="#" class="btn-ghost" style="opacity: 0.4; pointer-events: none;">Disabled</a>
+                  </div>
+                  <div class="mt-6 pt-5" style="border-top: 1px solid var(--border);">
+                    <p class="label text-[10px] mb-3">Usage</p>
+                    <div class="space-y-1.5 text-xs" style="font-family: 'DM Mono', monospace; color: var(--text-3);">
+                      <p>.btn-primary — bg: var(--accent), color: var(--on-accent)</p>
+                      <p>.btn-ghost — border: var(--border), hover: var(--accent)</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ── Tags ───────────────────────────────────────── -->
+              <section id="tags">
+                <h2 class="sg-section-title">Tags</h2>
+                <div class="card mt-6">
+                  <div class="flex flex-wrap gap-2 items-center">
+                    <span
+                      class="px-2.5 py-1 text-xs rounded-md"
+                      style="background-color: var(--bg-2); color: var(--text-2); border: 1px solid var(--border);"
+                    >
+                      Design Systems
+                    </span>
+                    <span
+                      class="px-2.5 py-1 text-xs rounded-md"
+                      style="background-color: var(--bg-2); color: var(--text-2); border: 1px solid var(--border);"
+                    >
+                      Leadership
+                    </span>
+                    <span
+                      class="px-2 py-0.5 text-xs rounded"
+                      style="background-color: var(--bg-2); color: var(--text-3); border: 1px solid var(--border); font-family: 'DM Mono', monospace;"
+                    >
+                      Systems
+                    </span>
+                    <span
+                      class="px-2 py-0.5 text-xs rounded"
+                      style="background-color: var(--accent-light); color: var(--accent); border: 1px solid var(--accent);"
+                    >
+                      Active
+                    </span>
+                    <span class="label" style="font-size: 11px;">LABEL</span>
+                  </div>
+                  <div class="mt-6 pt-5 space-y-1.5 text-xs" style="border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; color: var(--text-3);">
+                    <p>Default — bg-2 + border + text-2</p>
+                    <p>Mono tag — bg-2 + border + text-3 + DM Mono</p>
+                    <p>Accent tag — accent-light bg + accent border + accent text</p>
+                    <p>Label — .label utility class (DM Mono, 11px, uppercase, tracking)</p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ── Icons ──────────────────────────────────────── -->
+              <section id="icons">
+                <h2 class="sg-section-title">Icons</h2>
+                <div class="card mt-6">
+                  <p class="body-text text-sm mb-5">Lucide icon set. All rendered as inline SVG. Standard sizes: 14px, 16px, 18px.</p>
+                  <div class="flex flex-wrap gap-4 items-center">
+                    {[
+                      `<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
+                      `<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>`,
+                      `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>`,
+                      `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
+                      `<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>`,
+                      `<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>`,
+                      `<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>`,
+                      `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,
+                    ].map((path) => (
+                      <div
+                        class="w-9 h-9 rounded-lg flex items-center justify-center"
+                        style="background-color: var(--bg-3);"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.75"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          style="color: var(--text-2);"
+                          set:html={path}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div class="mt-5 pt-5" style="border-top: 1px solid var(--border);">
+                    <p class="text-xs" style="font-family: 'DM Mono', monospace; color: var(--text-3);">
+                      stroke-width: 1.75 · stroke-linecap: round · stroke-linejoin: round
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ── Spacing ─────────────────────────────────────── -->
+              <section id="spacing">
+                <h2 class="sg-section-title">Spacing</h2>
+                <div class="card mt-6">
+                  <p class="body-text text-sm mb-5">Tailwind 4px base unit. Key spacing values used site-wide.</p>
+                  <div class="space-y-2.5">
+                    {spacingScale.map((s) => (
+                      <div class="flex items-center gap-4">
+                        <span class="w-12 text-xs flex-shrink-0" style="font-family: 'DM Mono', monospace; color: var(--text-3);">{s}</span>
+                        <div
+                          class="h-4 rounded"
+                          style={`width: ${s * 4}px; background-color: var(--accent-light); border: 1px solid var(--accent);`}
+                        />
+                        <span class="text-xs" style="font-family: 'DM Mono', monospace; color: var(--text-3);">{s * 4}px</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <!-- ── Border Radius ──────────────────────────────── -->
+              <section id="radius">
+                <h2 class="sg-section-title">Border Radius</h2>
+                <div class="card mt-6">
+                  <div class="flex flex-wrap gap-6 items-end">
+                    {radiusTokens.map((r) => (
+                      <div class="flex flex-col items-center gap-2">
+                        <div
+                          class={`w-14 h-14 ${r.class}`}
+                          style="background-color: var(--bg-3); border: 1px solid var(--border);"
+                        />
+                        <p class="text-[11px] text-center" style="font-family: 'DM Mono', monospace; color: var(--accent);">{r.label}</p>
+                        <p class="text-[10px] text-center" style="font-family: 'DM Mono', monospace; color: var(--text-3);">{r.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <!-- ── Elevation ───────────────────────────────────── -->
+              <section id="elevation">
+                <h2 class="sg-section-title">Elevation</h2>
+                <div class="card mt-6">
+                  <div class="flex flex-wrap gap-6 items-end">
+                    <div class="flex flex-col gap-2 items-center">
+                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border);"/>
+                      <p class="text-[11px]" style="font-family: 'DM Mono', monospace; color: var(--text-3);">flat</p>
+                    </div>
+                    <div class="flex flex-col gap-2 items-center">
+                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.08);"/>
+                      <p class="text-[11px]" style="font-family: 'DM Mono', monospace; color: var(--text-3);">sm shadow</p>
+                    </div>
+                    <div class="flex flex-col gap-2 items-center">
+                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.14);"/>
+                      <p class="text-[11px]" style="font-family: 'DM Mono', monospace; color: var(--text-3);">md shadow</p>
+                    </div>
+                    <div class="flex flex-col gap-2 items-center">
+                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.18);"/>
+                      <p class="text-[11px]" style="font-family: 'DM Mono', monospace; color: var(--text-3);">lg shadow</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- ── Components ──────────────────────────────────── -->
+              <section id="components">
+                <h2 class="sg-section-title">Components</h2>
+                <div class="space-y-4 mt-6">
+
+                  <!-- Card -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Card</p>
+                    <div class="card group max-w-sm">
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-4" style="background-color: var(--accent-light);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+                          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>
+                        </svg>
+                      </div>
+                      <h3 class="text-sm font-semibold mb-2" style="color: var(--text);">Card Title</h3>
+                      <p class="text-sm leading-relaxed" style="color: var(--text-2);">Card body text with a comfortable reading size and relaxed line height.</p>
+                    </div>
+                  </div>
+
+                  <!-- Nav link -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Nav Link</p>
+                    <div class="p-3 rounded-xl max-w-xs" style="background-color: var(--bg-2); border: 1px solid var(--border);">
+                      <a href="#" class="nav-link">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Nav Item
+                      </a>
+                      <a href="#" class="nav-link active mt-0.5">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                          <rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                        Active Item
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Icon button -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Icon Button</p>
+                    <div class="flex gap-2">
+                      <button class="icon-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+                        </svg>
+                      </button>
+                      <button class="icon-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/>
+                        </svg>
+                      </button>
+                      <button class="icon-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </section>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  .sg-section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+</style>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-sg-link]');
+  const sectionIds = Array.from(links).map((l) => l.dataset.sgLink!);
+
+  function setActive(id: string) {
+    links.forEach((l) => {
+      const isActive = l.dataset.sgLink === id;
+      l.style.color = isActive ? 'var(--accent)' : 'var(--text-3)';
+      l.style.backgroundColor = isActive ? 'var(--accent-light)' : '';
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      }
+    },
+    { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
+  );
+
+  sectionIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  if (sectionIds[0]) setActive(sectionIds[0]);
+</script>

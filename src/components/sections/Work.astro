@@ -2,26 +2,30 @@
 const caseStudies = [
   {
     number: '01',
-    company: 'Docusign Ink',
-    tags: ['Design Systems', 'Team Management'],
+    company: 'DocuSign Ink',
+    subtitle: 'Design Systems · UI/UX · Sr. Design Manager',
+    tag: 'Systems',
     href: '#',
   },
   {
     number: '02',
-    company: 'Docusign Mobile Apps',
-    tags: ['UI/UX', 'Research'],
+    company: 'Glint',
+    subtitle: 'UI/UX · Employee Engagement · Research',
+    tag: 'Product',
     href: '#',
   },
   {
     number: '03',
-    company: 'Glint',
-    tags: ['UI/UX', 'Employee Engagement', 'Research'],
+    company: 'Shazam TV Experience',
+    subtitle: 'UI/UX · Visual Design · Mobile',
+    tag: 'Mobile',
     href: '#',
   },
   {
     number: '04',
-    company: 'Shazam TV Experience',
-    tags: ['UI/UX', 'Visual Design', 'Mobile'],
+    company: 'Shazam for Artists',
+    subtitle: 'Branding · Web Design · Research',
+    tag: 'Web',
     href: '#',
   },
 ];
@@ -51,24 +55,27 @@ const caseStudies = [
             {item.number}
           </span>
 
-          <!-- Company -->
-          <span
-            class="flex-1 text-base font-medium group-hover:text-accent transition-colors"
-            style="color: var(--text);"
-          >
-            {item.company}
-          </span>
+          <!-- Company + subtitle -->
+          <div class="flex-1 min-w-0">
+            <span
+              class="block text-base font-medium group-hover:text-accent transition-colors"
+              style="color: var(--text);"
+            >
+              {item.company}
+            </span>
+            <span class="block text-xs mt-0.5" style="color: var(--text-3);">
+              {item.subtitle}
+            </span>
+          </div>
 
-          <!-- Tags -->
-          <div class="hidden sm:flex flex-wrap gap-1.5">
-            {item.tags.map((tag) => (
-              <span
-                class="px-2 py-0.5 text-xs rounded"
-                style="background-color: var(--bg-2); color: var(--text-3); border: 1px solid var(--border);"
-              >
-                {tag}
-              </span>
-            ))}
+          <!-- Tag -->
+          <div class="hidden sm:block flex-shrink-0">
+            <span
+              class="px-2 py-0.5 text-xs rounded"
+              style="background-color: var(--bg-2); color: var(--text-3); border: 1px solid var(--border);"
+            >
+              {item.tag}
+            </span>
           </div>
 
           <!-- Arrow: visible only on hover -->
