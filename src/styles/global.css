@@ -103,7 +103,9 @@ button, a {
   }
   .body-text {
     font-family: 'DM Sans', sans-serif;
-    @apply text-base leading-relaxed;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.8;
     color: var(--text-2);
   }
 
