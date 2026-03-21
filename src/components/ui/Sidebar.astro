@@ -72,15 +72,13 @@ const isStyleguide = currentPath.startsWith('/styleguide');
 >
   <!-- Top: identity (logo link) -->
   <div style="border-bottom: 1px solid var(--border);">
-    <a href="/" class="logo-link px-5 py-6 block">
-      <img src="/JRU-black.svg" alt="Jonathan Ruiz" class="logo-black mb-4 flex-shrink-0" style="width: 32px; height: auto; display: block;" />
-      <img src="/JRU-white.svg" alt="Jonathan Ruiz" class="logo-white mb-4 flex-shrink-0" style="width: 32px; height: auto; display: none;" />
-      <p class="text-sm font-semibold leading-tight mb-0.5" style="color: var(--text);">
-        Jonathan Ruiz
-      </p>
-      <p class="text-xs leading-snug" style="color: var(--text-3);">
-        Sr. Design Manager · Miami, FL
-      </p>
+    <a href="/" class="logo-link px-5 py-6">
+      <img src="/JRU-black.svg" alt="Jonathan Ruiz" class="logo-img logo-light" width="32" />
+      <img src="/JRU-white.svg" alt="Jonathan Ruiz" class="logo-img logo-dark" width="32" />
+      <div class="logo-text">
+        <span class="logo-name">Jonathan Ruiz</span>
+        <span class="logo-title">Design Manager · Miami, FL</span>
+      </div>
     </a>
   </div>
 
@@ -191,10 +189,10 @@ const isStyleguide = currentPath.startsWith('/styleguide');
   class="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-14"
   style="background-color: var(--bg); border-bottom: 1px solid var(--border);"
 >
-  <a href="/" class="flex items-center gap-2.5 logo-link">
-    <img src="/JRU-black.svg" alt="Jonathan Ruiz" class="logo-black" style="width: 32px; height: auto; display: block;" />
-    <img src="/JRU-white.svg" alt="Jonathan Ruiz" class="logo-white" style="width: 32px; height: auto; display: none;" />
-    <span class="text-sm font-semibold" style="color: var(--text);">Jonathan Ruiz</span>
+  <a href="/" class="logo-link">
+    <img src="/JRU-black.svg" alt="Jonathan Ruiz" class="logo-img logo-light" width="32" />
+    <img src="/JRU-white.svg" alt="Jonathan Ruiz" class="logo-img logo-dark" width="32" />
+    <span class="logo-name">Jonathan Ruiz</span>
   </a>
   <div class="flex items-center gap-2">
     <button id="theme-toggle-mobile" class="icon-btn" aria-label="Toggle dark mode">
@@ -268,26 +266,11 @@ const isStyleguide = currentPath.startsWith('/styleguide');
     padding-left: 0.5rem;
   }
 
-  .logo-link {
-    text-decoration: none;
-    color: inherit;
-    opacity: 1;
-    transition: opacity 0.2s;
-  }
-  .logo-link:hover {
-    opacity: 0.85;
-  }
-
   .nav-link-active {
     background-color: var(--bg-2) !important;
     color: var(--text) !important;
   }
 
-  /* Theme-aware logos */
-  :global([data-theme="light"]) .logo-black { display: block; }
-  :global([data-theme="light"]) .logo-white { display: none; }
-  :global([data-theme="dark"])  .logo-black { display: none; }
-  :global([data-theme="dark"])  .logo-white { display: block; }
 </style>
 
 <script>
