@@ -51,6 +51,7 @@ PERSONAL
 - Christian faith is central to his life and leadership
 - Husband to his best friend and father of two beautiful children
 - Loves running, lifting weights, hybrid training, playing soccer
+- CliftonStrengths Top 5: Belief, Positivity, Achiever, Woo, Arranger
 - Enjoyes travelling and the outdoors 
 - Passionate about mentorship, community, and building things that matter
 

@@ -10,7 +10,7 @@ const GREETING: Message = {
   id: 'greeting',
   role: 'assistant',
   content:
-    "Hi! I'm JRU, an AI assistant trained on Jonathan's background and work. Ask me anything — his experience, design process, availability, or community work.",
+    "Hi! I'm JRU, an AI assistant trained on Jonathan's background and work. Ask me anything about his persona life, experience, design process, availability, or community work.",
 };
 
 const SUGGESTED = [
@@ -137,7 +137,7 @@ export default function ChatWidget() {
       {/* ── Floating trigger button ──────────────────────────────────────── */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Close chat' : 'Ask Jonathan AI'}
+        aria-label={open ? 'Close chat' : 'Ask JRU'}
         style={{
           ...fontBase,
           position: 'fixed',
@@ -188,14 +188,14 @@ export default function ChatWidget() {
         </span>
 
         {open ? <XIcon /> : <MessageCircleIcon />}
-        {!open && 'Ask Jonathan'}
+        {!open && 'Ask JRU'}
       </button>
 
       {/* ── Chat panel ───────────────────────────────────────────────────── */}
       {open && (
         <div
           role="dialog"
-          aria-label="Chat with Jonathan's AI assistant"
+          aria-label="Chat with JRU, Jonathan's AI assistant"
           style={{
             position: 'fixed',
             bottom: '5.5rem',
