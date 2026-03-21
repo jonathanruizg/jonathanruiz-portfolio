@@ -19,3 +19,6 @@ dist/
 # Leftover scaffold attempt
 cyan-comet/
 .vercel
+
+# Finder duplicates
+.git\ 2/
