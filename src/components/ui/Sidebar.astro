@@ -73,12 +73,8 @@ const isStyleguide = currentPath.startsWith('/styleguide');
   <!-- Top: identity (logo link) -->
   <div style="border-bottom: 1px solid var(--border);">
     <a href="/" class="logo-link px-5 py-6 block">
-      <img
-        src="/jru-logo-final.svg"
-        alt="Jonathan Ruiz"
-        class="mb-4 flex-shrink-0 logo-mark"
-        style="width: 32px; height: auto; display: block;"
-      />
+      <img src="/JRU-black.svg" alt="Jonathan Ruiz" class="logo-black mb-4 flex-shrink-0" style="width: 32px; height: auto; display: block;" />
+      <img src="/JRU-white.svg" alt="Jonathan Ruiz" class="logo-white mb-4 flex-shrink-0" style="width: 32px; height: auto; display: none;" />
       <p class="text-sm font-semibold leading-tight mb-0.5" style="color: var(--text);">
         Jonathan Ruiz
       </p>
@@ -196,12 +192,8 @@ const isStyleguide = currentPath.startsWith('/styleguide');
   style="background-color: var(--bg); border-bottom: 1px solid var(--border);"
 >
   <a href="/" class="flex items-center gap-2.5 logo-link">
-    <img
-      src="/jru-logo-final.svg"
-      alt="Jonathan Ruiz"
-      class="logo-mark"
-      style="width: 32px; height: auto; display: block;"
-    />
+    <img src="/JRU-black.svg" alt="Jonathan Ruiz" class="logo-black" style="width: 32px; height: auto; display: block;" />
+    <img src="/JRU-white.svg" alt="Jonathan Ruiz" class="logo-white" style="width: 32px; height: auto; display: none;" />
     <span class="text-sm font-semibold" style="color: var(--text);">Jonathan Ruiz</span>
   </a>
   <div class="flex items-center gap-2">
@@ -291,10 +283,11 @@ const isStyleguide = currentPath.startsWith('/styleguide');
     color: var(--text) !important;
   }
 
-  /* In dark mode, invert the logo to white */
-  :global([data-theme="dark"]) .logo-mark {
-    filter: brightness(0) invert(1);
-  }
+  /* Theme-aware logos */
+  :global([data-theme="light"]) .logo-black { display: block; }
+  :global([data-theme="light"]) .logo-white { display: none; }
+  :global([data-theme="dark"])  .logo-black { display: none; }
+  :global([data-theme="dark"])  .logo-white { display: block; }
 </style>
 
 <script>
