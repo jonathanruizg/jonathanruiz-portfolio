@@ -128,10 +128,11 @@ if (gl) {
       vec2 coord = gl_PointCoord - 0.5;
       float r = length(coord);
       if (r > 0.5) discard;
-      float alpha = mix(0.12, 0.85, v_alpha);
-      alpha *= (1.0 - r * 1.8);
-      vec3 baseDark = vec3(0.35, 0.35, 0.34);
-      vec3 baseLight = vec3(0.72, 0.70, 0.68);
+      float baseAlpha = mix(0.25, 0.18, u_isDark);
+      float alpha = mix(baseAlpha, 0.9, v_alpha);
+      alpha *= (1.0 - r * 1.6);
+      vec3 baseDark = vec3(0.38, 0.38, 0.36);
+      vec3 baseLight = vec3(0.55, 0.53, 0.50);
       vec3 baseColor = mix(baseLight, baseDark, u_isDark);
       vec3 accentColor = vec3(1.0, 0.373, 0.251);
       vec3 color = mix(baseColor, accentColor, v_alpha * 0.85);
