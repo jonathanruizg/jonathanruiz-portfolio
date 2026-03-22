@@ -67,8 +67,17 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([GREETING]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   // Scroll to bottom & focus input whenever messages change or panel opens
   useEffect(() => {
@@ -141,14 +150,14 @@ export default function ChatWidget() {
         style={{
           ...fontBase,
           position: 'fixed',
-          bottom: '1.5rem',
-          right: '1.5rem',
+          bottom: isMobile ? '1.25rem' : '2rem',
+          right: isMobile ? '1rem' : '2rem',
           zIndex: 100,
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem',
-          padding: '0 1.25rem',
-          height: '3rem',
+          padding: isMobile ? '0.6rem 1rem' : '0 1.25rem',
+          height: isMobile ? 'auto' : '3rem',
           borderRadius: '9999px',
           backgroundColor: 'var(--accent)',
           color: 'var(--on-accent)',
@@ -156,7 +165,7 @@ export default function ChatWidget() {
           cursor: 'pointer',
           boxShadow: '0 4px 20px rgba(255,95,64,0.35)',
           transition: 'transform 0.15s ease, box-shadow 0.15s ease',
-          fontSize: '0.875rem',
+          fontSize: isMobile ? '0.75rem' : '0.875rem',
           fontWeight: 500,
         }}
         onMouseEnter={(e) => {
@@ -198,10 +207,10 @@ export default function ChatWidget() {
           aria-label="Chat with JRU, Jonathan's AI assistant"
           style={{
             position: 'fixed',
-            bottom: '5.5rem',
-            right: '1.5rem',
+            bottom: isMobile ? '4.5rem' : '5.5rem',
+            right: isMobile ? '1rem' : '2rem',
             zIndex: 100,
-            width: 'min(380px, calc(100vw - 2rem))',
+            width: isMobile ? 'calc(100vw - 2rem)' : 'min(380px, calc(100vw - 2rem))',
             maxHeight: '72vh',
             borderRadius: '1rem',
             overflow: 'hidden',

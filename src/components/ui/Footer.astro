@@ -2,15 +2,16 @@
 const year = new Date().getFullYear();
 ---
 
-<footer class="py-8 section-divider">
+<footer class="section-divider footer-root">
   <div class="section-container">
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p style="font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--text-3);">
-        &copy; {year} Jonathan Ruiz &nbsp;·&nbsp; Built with Claude Code in Miami.
-      </p>
+    <div class="footer-inner">
+      <p class="footer-copy">&copy; {year} Jonathan Ruiz</p>
+      <p class="footer-copy footer-built">Built with Claude Code in Miami</p>
       <div class="footer-links">
         <a href="/styleguide">Styleguide</a>
+        <span class="footer-sep">·</span>
         <a href="/#community">Community</a>
+        <span class="footer-sep">·</span>
         <a href="/#vibe-coding">Vibe Coding</a>
       </div>
     </div>
@@ -18,9 +19,29 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  .footer-root {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-3);
+    margin: 0;
+  }
+
   .footer-links {
     display: flex;
-    gap: 1.25rem;
+    align-items: center;
+    gap: 0.5rem;
   }
   .footer-links a {
     font-size: 0.72rem;
@@ -28,7 +49,30 @@ const year = new Date().getFullYear();
     text-decoration: none;
     transition: color 0.15s;
   }
-  .footer-links a:hover {
-    color: var(--text);
+  .footer-links a:hover { color: var(--text); }
+  .footer-sep {
+    font-size: 0.72rem;
+    color: var(--text-3);
+  }
+
+  /* Mobile: stack vertically, centered */
+  @media (max-width: 768px) {
+    .footer-root {
+      padding: 2rem 1.5rem 5rem 1.5rem;
+    }
+    .footer-inner {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .footer-built {
+      display: block;
+    }
+  }
+
+  /* Desktop: hide built line as separate element (it's in the copy paragraph) */
+  @media (min-width: 769px) {
+    .footer-built { display: none; }
+    .footer-copy::after { content: ' · Built with Claude Code in Miami'; }
   }
 </style>
