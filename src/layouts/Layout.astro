@@ -4,12 +4,16 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  showJsonLd?: boolean;
 }
 
 const {
-  title = 'Jonathan Ruiz — Sr. Design Manager',
-  description = 'Portfolio of Jonathan Ruiz — Sr. Product Design Manager at Docusign, educator and community builder based in Miami.',
+  title = 'Jonathan Ruiz — Sr. Product Design Manager',
+  description = 'Sr. Product Design Manager at Docusign leading Ink Design System. Educator, community builder, and design leader based in Miami, FL.',
+  showJsonLd = false,
 } = Astro.props;
+
+const canonicalUrl = Astro.url.href;
 ---
 
 <!doctype html>
@@ -17,13 +21,57 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary -->
+    <meta name="description" content={description} />
+    <meta name="author" content="Jonathan Ruiz" />
+    <meta name="keywords" content="Product Design Manager, Design Systems, UX Design, Miami, Docusign, Ink Design System, Design Leadership, AI Design" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/JR-Headshot-Circular.png" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/JR-Headshot-Circular.png" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    <!-- JSON-LD Person schema (homepage only) -->
+    {showJsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Jonathan Ruiz",
+        "jobTitle": "Sr. Product Design Manager",
+        "worksFor": { "@type": "Organization", "name": "Docusign" },
+        "url": "https://jonathanruiz.net",
+        "image": "https://jonathanruiz.net/JR-Headshot-Circular.png",
+        "sameAs": [
+          "https://linkedin.com/in/jonaruiz",
+          "https://github.com/jonathanruizg",
+          "https://dribbble.com/Jonathanruiz"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Miami",
+          "addressRegion": "FL",
+          "addressCountry": "US"
+        },
+        "knowsAbout": ["Design Systems","Product Design","UX Design","Design Leadership","Accessibility","AI Design"]
+      })} />
+    )}
 
     <!-- Prevent dark mode flash; defaults to dark -->
     <script is:inline>
@@ -32,10 +80,13 @@ const {
     </script>
   </head>
   <body>
+    <!-- Skip to main content -->
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
+
     <!-- Theme toggle — fixed top right (desktop only) -->
-    <button id="theme-toggle" aria-label="Toggle theme" style="position:fixed;top:1.25rem;right:1.5rem;z-index:200;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:0.4rem;color:var(--text-3);cursor:pointer;transition:color 0.2s,border-color 0.2s;">
-      <svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-      <svg id="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    <button id="theme-toggle" aria-label="Toggle dark mode" style="position:fixed;top:1.25rem;right:1.5rem;z-index:200;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:0.4rem;color:var(--text-3);cursor:pointer;transition:color 0.2s,border-color 0.2s;">
+      <svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      <svg id="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="display:none" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
     </button>
 
     <style>

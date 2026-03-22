@@ -64,12 +64,12 @@ const podcasts = [
 
 <Layout
   title="About — Jonathan Ruiz"
-  description="Learn about Jonathan Ruiz — Sr. Product Design Manager at Docusign, educator at BrainStation, and community builder in Miami."
+  description="Learn about Jonathan Ruiz — design leader, educator at BrainStation, co-leader of Friends of Figma Miami, and Sr. Product Design Manager at Docusign."
 >
   <Sidebar currentPath={Astro.url.pathname} />
 
   <div class="content-area pt-14 md:pt-0">
-    <main>
+    <main id="main-content">
 
       <!-- ── Section A: Bio ── -->
       <section class="section-padding">
@@ -131,7 +131,7 @@ const podcasts = [
               <div class="profile-card">
                 <img
                   src="/JR-Headshot-Circular.png"
-                  alt="Jonathan Ruiz"
+                  alt="Jonathan Ruiz headshot"
                   class="profile-headshot"
                 />
                 <div class="profile-body">
@@ -177,7 +177,7 @@ const podcasts = [
             {books.map((book) => (
               <div class="book-card">
                 <div class="book-cover-wrap">
-                  <img src={book.image} alt={book.title} class="book-cover" />
+                  <img src={book.image} alt={`Book cover: ${book.title} by ${book.author}`} class="book-cover" />
                 </div>
                 <p class="book-title">{book.title}</p>
                 <p class="book-author">{book.author}</p>
