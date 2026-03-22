@@ -102,6 +102,10 @@ const socialLinks = [
         <a href={link.href} class={isActive(link.href) ? 'active' : ''}>{link.label}</a>
       ))}
     </nav>
+    <button id="mob-theme-btn" class="mob-theme-btn" aria-label="Toggle theme">
+      <svg id="mob-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      <svg id="mob-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
   </div>
 </div>
 
@@ -251,5 +255,45 @@ const socialLinks = [
   }
   .mobile-nav a:hover { color: var(--text); background: var(--bg-2); }
   .mobile-nav a.active { color: var(--accent); font-weight: 500; }
+
+  .mob-theme-btn {
+    background: none;
+    border: none;
+    color: var(--text-3);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    transition: color 0.15s;
+  }
+  .mob-theme-btn:hover { color: var(--text); }
 </style>
+
+<script>
+  const mobBtn = document.getElementById('mob-theme-btn');
+  const mobMoon = document.getElementById('mob-moon');
+  const mobSun = document.getElementById('mob-sun');
+
+  function syncMobIcons() {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (mobMoon) (mobMoon as HTMLElement).style.display = dark ? 'none' : 'block';
+    if (mobSun)  (mobSun as HTMLElement).style.display  = dark ? 'block' : 'none';
+  }
+
+  syncMobIcons();
+
+  mobBtn?.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    syncMobIcons();
+    // Also sync the desktop toggle icons if present
+    const deskMoon = document.getElementById('icon-moon');
+    const deskSun  = document.getElementById('icon-sun');
+    if (deskMoon) (deskMoon as HTMLElement).style.display = next === 'dark' ? 'none' : 'block';
+    if (deskSun)  (deskSun as HTMLElement).style.display  = next === 'dark' ? 'block' : 'none';
+  });
+</script>
 
