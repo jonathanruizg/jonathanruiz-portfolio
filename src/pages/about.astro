@@ -10,27 +10,27 @@ const tags = [
 
 const books = [
   {
-    title: 'UX for AI: A Framework for Designing AI-Driven Products',
-    author: 'Yury Vetrov',
-    isbn: '9781394345922',
+    title: 'UX for AI',
+    author: 'Greg Nudelman',
+    image: '/books/ux-for-ai-cover.jpg',
     preorder: null,
   },
   {
     title: 'Leonardo da Vinci',
     author: 'Walter Isaacson',
-    isbn: '9781501139154',
+    image: '/books/leonardo-cover.jpg',
     preorder: null,
   },
   {
     title: 'Principles of Building AI Agents',
     author: 'Sam Bhagwat',
-    isbn: '9798312004281',
+    image: '/books/ai-agents-cover.jpg',
     preorder: null,
   },
   {
     title: 'Sentient Design',
     author: 'Josh Clark & Veronika Kindred',
-    isbn: null,
+    image: '/books/sentient-design-cover.jpg',
     preorder: 'Pre-ordered · June 2026',
   },
 ];
@@ -168,17 +168,7 @@ const podcasts = [
             {books.map((book) => (
               <div class="book-card">
                 <div class="book-cover-wrap">
-                  {book.isbn ? (
-                    <img
-                      src={`https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg`}
-                      alt={book.title}
-                      class="book-cover"
-                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-                    />
-                  ) : null}
-                  <div class="book-fallback" style={book.isbn ? 'display:none' : 'display:flex'}>
-                    {book.title.split(' ').slice(0, 2).map(w => w[0]).join('')}
-                  </div>
+                  <img src={book.image} alt={book.title} class="book-cover" />
                 </div>
                 <p class="book-title">{book.title}</p>
                 <p class="book-author">{book.author}</p>
