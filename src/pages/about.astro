@@ -11,7 +11,7 @@ const tags = [
 const books = [
   {
     title: 'UX for AI: A Framework for Designing AI-Driven Products',
-    author: 'Greg Nudelman',
+    author: 'Yury Vetrov',
     isbn: '9781394345922',
     preorder: null,
   },
@@ -165,31 +165,33 @@ const podcasts = [
           <p class="label mb-8">Currently Reading</p>
 
           <div class="books-grid">
-            {books.map((book) => (
-              <div class="book-card">
-                <div class="book-cover-wrap">
-                  {book.isbn ? (
-                    <img
-                      src={`https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg`}
-                      alt={book.title}
-                      class="book-cover"
-                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
-                    />
-                  ) : null}
-                  <div
-                    class="book-fallback"
-                    style={book.isbn ? 'display:none' : 'display:flex'}
-                  >
-                    {book.title.split(' ').slice(0, 2).map(w => w[0]).join('')}
+            {books.map((book) => {
+              const uid = book.isbn ?? book.title.toLowerCase().replace(/\s+/g, '-');
+              return (
+                <div class="book-card">
+                  <div class="book-cover-wrap">
+                    {book.isbn && (
+                      <img
+                        id={`book-${uid}`}
+                        class="book-cover"
+                        src=""
+                        alt={book.title}
+                        data-isbn={book.isbn}
+                        style="display: none;"
+                      />
+                    )}
+                    <div class="book-fallback" id={`fallback-${uid}`}>
+                      {book.title.split(' ').slice(0, 2).map(w => w[0]).join('')}
+                    </div>
                   </div>
+                  <p class="book-title">{book.title}</p>
+                  <p class="book-author">{book.author}</p>
+                  {book.preorder && (
+                    <span class="book-badge">{book.preorder}</span>
+                  )}
                 </div>
-                <p class="book-title">{book.title}</p>
-                <p class="book-author">{book.author}</p>
-                {book.preorder && (
-                  <span class="book-badge">{book.preorder}</span>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -466,6 +468,27 @@ const podcasts = [
 </style>
 
 <script>
+  // Fetch Google Books covers client-side
+  const bookImgs = document.querySelectorAll<HTMLImageElement>('[data-isbn]');
+  bookImgs.forEach(async (img) => {
+    const isbn = img.getAttribute('data-isbn');
+    if (!isbn) return;
+    const fallback = document.getElementById(img.id.replace('book-', 'fallback-'));
+    try {
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
+      const data = await res.json();
+      const links = data?.items?.[0]?.volumeInfo?.imageLinks;
+      let url = links?.thumbnail || links?.smallThumbnail;
+      if (url) {
+        url = url.replace('zoom=1', 'zoom=2').replace('http://', 'https://');
+        img.src = url;
+        img.style.display = 'block';
+        img.onload = () => { if (fallback) (fallback as HTMLElement).style.display = 'none'; };
+        img.onerror = () => { img.style.display = 'none'; };
+      }
+    } catch { /* fallback stays visible */ }
+  });
+
   // Fetch iTunes album art client-side
   const artists = document.querySelectorAll<HTMLImageElement>('[data-artist]');
 
