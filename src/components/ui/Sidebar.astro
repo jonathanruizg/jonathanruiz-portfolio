@@ -24,18 +24,23 @@ function isActive(href: string) {
 const socialLinks = [
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/jonaruiz/',
+    href: 'https://linkedin.com/in/jonaruiz',
     icon: `<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>`,
-  },
-  {
-    label: 'Email',
-    href: 'mailto:jonathanruizg@me.com',
-    icon: `<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>`,
   },
   {
     label: 'Dribbble',
     href: 'https://dribbble.com/Jonathanruiz',
     icon: `<circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/>`,
+  },
+  {
+    label: 'GitHub',
+    href: 'https://github.com/jonathanruizg',
+    icon: `<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>`,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:jonathanruizg@me.com',
+    icon: `<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>`,
   },
 ];
 ---
@@ -71,7 +76,7 @@ const socialLinks = [
 
   <div class="sidebar-divider"></div>
 
-  <!-- Social + Theme -->
+  <!-- Social icons -->
   <div class="sidebar-section sidebar-bottom">
     <div class="sidebar-social">
       {socialLinks.map(s => (
@@ -80,18 +85,6 @@ const socialLinks = [
         </a>
       ))}
     </div>
-
-    <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme">
-      <!-- Moon: shown in light mode -->
-      <svg id="icon-moon" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-      </svg>
-      <!-- Sun: shown in dark mode -->
-      <svg id="icon-sun" class="theme-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="4"/>
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-      </svg>
-    </button>
   </div>
 
 </aside>
@@ -109,15 +102,6 @@ const socialLinks = [
         <a href={link.href} class={isActive(link.href) ? 'active' : ''}>{link.label}</a>
       ))}
     </nav>
-    <button id="theme-toggle-mobile" class="theme-btn" aria-label="Toggle theme">
-      <svg id="mob-moon" class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
-      </svg>
-      <svg id="mob-sun" class="theme-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="4"/>
-        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-      </svg>
-    </button>
   </div>
 </div>
 
@@ -196,22 +180,6 @@ const socialLinks = [
   }
   .sidebar-social a:hover { color: var(--text); }
 
-  .theme-btn {
-    background: none;
-    border: none;
-    color: var(--text-3);
-    cursor: pointer;
-    padding: 0.3rem;
-    border-radius: 6px;
-    transition: color 0.15s;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-  }
-  .theme-btn:hover { color: var(--text); }
-  .theme-icon { width: 15px; height: 15px; }
-  .hidden { display: none !important; }
-
   /* ── Logo ── */
   .logo-link {
     display: flex;
@@ -285,28 +253,3 @@ const socialLinks = [
   .mobile-nav a.active { color: var(--accent); font-weight: 500; }
 </style>
 
-<script>
-  function applyTheme(dark: boolean) {
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
-    updateIcons(dark);
-  }
-
-  function updateIcons(dark: boolean) {
-    document.getElementById('icon-moon')?.classList.toggle('hidden', dark);
-    document.getElementById('icon-sun')?.classList.toggle('hidden', !dark);
-    document.getElementById('mob-moon')?.classList.toggle('hidden', dark);
-    document.getElementById('mob-sun')?.classList.toggle('hidden', !dark);
-  }
-
-  // Sync icons on load
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  updateIcons(isDark);
-
-  document.getElementById('theme-toggle')?.addEventListener('click', () => {
-    applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
-  });
-  document.getElementById('theme-toggle-mobile')?.addEventListener('click', () => {
-    applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
-  });
-</script>

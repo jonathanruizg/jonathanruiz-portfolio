@@ -32,6 +32,39 @@ const {
     </script>
   </head>
   <body>
+    <!-- Theme toggle — fixed top right -->
+    <button id="theme-toggle" aria-label="Toggle theme" style="position:fixed;top:1.25rem;right:1.5rem;z-index:200;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:0.4rem;color:var(--text-3);cursor:pointer;transition:color 0.2s,border-color 0.2s;">
+      <svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      <svg id="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </button>
+
     <slot />
+
+    <script is:inline>
+      (function() {
+        var btn = document.getElementById('theme-toggle');
+        var moon = document.getElementById('icon-moon');
+        var sun = document.getElementById('icon-sun');
+
+        function syncIcons() {
+          var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+          moon.style.display = dark ? 'none' : 'block';
+          sun.style.display = dark ? 'block' : 'none';
+        }
+
+        syncIcons();
+
+        btn.addEventListener('mouseover', function() { btn.style.color = 'var(--text)'; btn.style.borderColor = 'var(--text-3)'; });
+        btn.addEventListener('mouseout', function() { btn.style.color = 'var(--text-3)'; btn.style.borderColor = 'var(--border)'; });
+
+        btn.addEventListener('click', function() {
+          var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          var next = isDark ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          syncIcons();
+        });
+      })();
+    </script>
   </body>
 </html>
