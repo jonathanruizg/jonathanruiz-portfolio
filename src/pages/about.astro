@@ -168,7 +168,57 @@ const podcasts = [
         </div>
       </section>
 
-      <!-- ── Section B: Currently Reading ── -->
+      <!-- ── Section B: Education ── -->
+      <section class="section-padding section-divider">
+        <div class="section-container">
+          <p class="label mb-8">Education</p>
+
+          <div class="edu-list">
+            <div class="edu-row">
+              <div>
+                <p class="edu-degree">Bachelor of Science, Advertising</p>
+                <p class="edu-school">Florida International University · Miami, FL</p>
+              </div>
+              <span class="edu-year">2013</span>
+            </div>
+            <div class="edu-row">
+              <div>
+                <p class="edu-degree">Associate of Science, Graphic Design</p>
+                <p class="edu-school">Broward College · Fort Lauderdale, FL</p>
+              </div>
+              <span class="edu-year">2011</span>
+            </div>
+          </div>
+
+          <p class="cert-label">Certificates</p>
+
+          <div class="cert-list">
+            <div class="cert-row">
+              <a href="https://drive.google.com/file/d/1GVfG0otOy7nrQNAq0Uh73POA8_lUfMyd/view" target="_blank" rel="noopener noreferrer" class="cert-name">
+                JavaScript Development
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10M7 17 17 7"/></svg>
+              </a>
+              <span class="cert-meta">General Assembly · 2021</span>
+            </div>
+            <div class="cert-row">
+              <a href="https://drive.google.com/file/d/1hHYjqgna-Tl_GZUH8t0ffqfqr-gjtc8P/view" target="_blank" rel="noopener noreferrer" class="cert-name">
+                Designing for Design Systems
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10M7 17 17 7"/></svg>
+              </a>
+              <span class="cert-meta">Rosenfeld Media · 2020</span>
+            </div>
+            <div class="cert-row" style="border-bottom: none;">
+              <a href="https://drive.google.com/file/d/1urrOniunatjyV4IT-MfxqEkHNvGW4fkg/view" target="_blank" rel="noopener noreferrer" class="cert-name">
+                User Experience Design
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10M7 17 17 7"/></svg>
+              </a>
+              <span class="cert-meta">General Assembly · 2016</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Section C: Currently Reading ── -->
       <section class="section-padding section-divider">
         <div class="section-container">
           <p class="label mb-8">Currently Reading</p>
@@ -363,6 +413,78 @@ const podcasts = [
   }
   .currently-val svg {
     flex-shrink: 0;
+  }
+
+  /* ── Education ── */
+  .edu-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+  }
+  .edu-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .edu-degree {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    margin: 0 0 0.15rem;
+  }
+  .edu-school {
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-3);
+    margin: 0;
+  }
+  .edu-year {
+    font-size: 0.68rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-3);
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+
+  /* ── Certificates ── */
+  .cert-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .cert-list {
+    max-width: 480px;
+  }
+  .cert-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cert-name {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: color 0.15s;
+  }
+  .cert-name:hover { color: var(--accent); }
+  .cert-meta {
+    font-size: 0.68rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-3);
+    flex-shrink: 0;
+    margin-left: 1rem;
   }
 
   /* ── Books ── */
