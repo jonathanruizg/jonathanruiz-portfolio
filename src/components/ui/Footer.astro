@@ -1,12 +1,10 @@
 ---
-const year = new Date().getFullYear();
 ---
 
 <footer class="section-divider footer-root">
   <div class="section-container">
     <div class="footer-inner">
-      <p class="footer-copy">&copy; {year} Jonathan Ruiz</p>
-      <p class="footer-copy footer-built">Built with Claude Code in Miami</p>
+      <p class="footer-copy">&copy; 2026 Jonathan Ruiz &middot; Designed &amp; built using Astro, Tailwind, and Claude Code.</p>
       <div class="footer-links">
         <a href="/styleguide">Styleguide</a>
         <span class="footer-sep">·</span>
@@ -42,8 +40,10 @@ const year = new Date().getFullYear();
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-shrink: 0;
   }
   .footer-links a {
+    font-family: 'DM Mono', monospace;
     font-size: 0.72rem;
     color: var(--text-3);
     text-decoration: none;
@@ -55,24 +55,12 @@ const year = new Date().getFullYear();
     color: var(--text-3);
   }
 
-  /* Mobile: stack vertically, centered */
-  @media (max-width: 768px) {
-    .footer-root {
-      padding: 2rem 1.5rem 5rem 1.5rem;
-    }
+  @media (max-width: 480px) {
     .footer-inner {
       flex-direction: column;
       align-items: center;
       text-align: center;
+      gap: 0.75rem;
     }
-    .footer-built {
-      display: block;
-    }
-  }
-
-  /* Desktop: hide built line as separate element (it's in the copy paragraph) */
-  @media (min-width: 769px) {
-    .footer-built { display: none; }
-    .footer-copy::after { content: ' · Built with Claude Code in Miami'; }
   }
 </style>
