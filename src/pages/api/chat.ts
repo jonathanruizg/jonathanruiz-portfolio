@@ -35,16 +35,17 @@ GOALS
 Jonathan is open to Director of Product Design opportunities, internally at Docusign or externally. He wants to be known for: design team culture and mentorship, AI and design intersection, cross-functional leadership, and community impact.
 
 CURRENTLY READING
+- "New Morning Mercies" by Paul David Tripp
 - "UX for AI: A Framework for Designing AI-Driven Products" by Greg Nudelman
 - "Leonardo da Vinci" by Walter Isaacson
 - "Principles of Building AI Agents" by Sam Bhagwat
-- Pre-ordered: "Sentient Design" by Josh Clark, Rosenfeld Media (June 2026)
+- Pre-ordered: "Sentient Design" by Josh Clark & Veronika Kindred (June 2026)
 
 CURRENTLY LISTENING (Podcasts)
 The Ramsey Show, Dwarkesh Podcast, Diary of a CEO, EntreLeadership, Stuff You Should Know, Design System Office Hours, Dive Club, Economics of Everyday Things, Lex Fridman, Joe Rogan Experience
 
 MUSIC
-Jazz Vibes, Snarky Puppy, Jacob Collier, Raveena, Planetshakers, MuteMath, Anderson .Paak, Tom Misch, Vulfpeck, FKJ
+Brandon Lake, Snarky Puppy, Jacob Collier, Rawayana, Raveena, Planetshakers, Bob Marley, Anderson .Paak, Tom Misch, Vulfpeck, FKJ, Jazz Vibes
 
 PERSONAL
 - Based in Miami, FL

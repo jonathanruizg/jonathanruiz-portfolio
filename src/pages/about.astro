@@ -10,7 +10,13 @@ const tags = [
 
 const books = [
   {
-    title: 'UX for AI',
+    title: 'New Morning Mercies',
+    author: 'Paul David Tripp',
+    image: '/books/new-morning-mercies.jpg',
+    preorder: null,
+  },
+  {
+    title: 'UX for AI: A Framework for Designing AI-Driven Products',
     author: 'Greg Nudelman',
     image: '/books/ux-for-ai-cover.jpg',
     preorder: null,
@@ -36,16 +42,18 @@ const books = [
 ];
 
 const musicArtists = [
-  { id: 'snarky-puppy',   term: 'Snarky Puppy' },
-  { id: 'jacob-collier',  term: 'Jacob Collier' },
-  { id: 'raveena',        term: 'Raveena' },
-  { id: 'planetshakers',  term: 'Planetshakers' },
-  { id: 'mutemath',       term: 'Mutemath' },
-  { id: 'anderson-paak',  term: 'Anderson Paak' },
-  { id: 'tom-misch',      term: 'Tom Misch' },
-  { id: 'vulfpeck',       term: 'Vulfpeck' },
-  { id: 'fkj',            term: 'FKJ' },
-  { id: 'jazz-vibes',     term: 'Jazz Vibes' },
+  { id: 'brandon-lake',  term: 'Brandon Lake' },
+  { id: 'snarky-puppy',  term: 'Snarky Puppy' },
+  { id: 'jacob-collier', term: 'Jacob Collier' },
+  { id: 'rawayana',      term: 'Rawayana' },
+  { id: 'raveena',       term: 'Raveena' },
+  { id: 'planetshakers', term: 'Planetshakers' },
+  { id: 'bob-marley',    term: 'Bob Marley' },
+  { id: 'anderson-paak', term: 'Anderson Paak' },
+  { id: 'tom-misch',     term: 'Tom Misch' },
+  { id: 'vulfpeck',      term: 'Vulfpeck' },
+  { id: 'fkj',           term: 'FKJ' },
+  { id: 'jazz-vibes',    term: 'Jazz Vibes' },
 ];
 
 const podcasts = [
@@ -227,7 +235,20 @@ const podcasts = [
             {books.map((book) => (
               <div class="book-card">
                 <div class="book-cover-wrap">
-                  <img src={book.image} alt={`Book cover: ${book.title} by ${book.author}`} class="book-cover" />
+                  {book.image ? (
+                    <img
+                      src={book.image}
+                      alt={`Book cover: ${book.title} by ${book.author}`}
+                      class="book-cover"
+                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                    />
+                  ) : null}
+                  <div
+                    class="book-fallback"
+                    style={book.image ? 'display:none' : 'display:flex'}
+                  >
+                    {book.title.split(' ').slice(0, 2).map(w => w[0]).join('')}
+                  </div>
                 </div>
                 <p class="book-title">{book.title}</p>
                 <p class="book-author">{book.author}</p>
