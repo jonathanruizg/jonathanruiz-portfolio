@@ -101,7 +101,6 @@
 
     void main() {
       vec2 mouseNorm = u_mouse / u_resolution;
-      mouseNorm.y = 1.0 - mouseNorm.y;
 
       float dist = distance(a_basePos, mouseNorm);
       float influence = smoothstep(0.3, 0.0, dist);
