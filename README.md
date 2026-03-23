@@ -4,20 +4,22 @@ Personal portfolio site for Jonathan Ruiz — Sr. Product Design Manager at Docu
 
 Built with Astro, Tailwind CSS, and Claude Code. Hosted on Vercel. Zero monthly hosting costs.
 
-**[→ View the live site](https://www.jonathanruiz.net)**
+**[→ View the live site](https://jonathanruiz.net)**
 
 ---
 
 ## What's inside
 
-A portfolio site that doubles as a Vibe Coding experiment with production-quality code using AI tools without a traditional technical background.
+A portfolio site that doubles as a Vibe Coding experiment with production-quality code using AI tools.
 
 **Features**
-- WebGL dot grid animation in the hero — interactive, cursor-reactive, theme-aware
+- WebGL dot grid animation in the hero — interactive, cursor-reactive, works in light and dark mode
 - AI chat widget powered by Claude API — trained on my background, work, and thinking
 - Light and dark mode with localStorage persistence
-- Fully accessible — WCAG AA compliant color tokens throughout
-- Separate pages for Work, About, Leadership philosophy, and Styleguide
+- Fully accessible — WCAG AA compliant, skip nav, ARIA labels, focus styles throughout
+- SEO optimized — Open Graph meta tags, JSON-LD Person schema, sitemap, robots.txt
+- Vercel Analytics — privacy-friendly, no cookies, no consent banners
+- Separate pages for Work, About, Leadership, Resume, and Styleguide
 - Coming soon placeholders for case studies in progress
 
 ---
@@ -33,6 +35,7 @@ A portfolio site that doubles as a Vibe Coding experiment with production-qualit
 | Fonts | DM Sans + DM Mono (Google Fonts) |
 | AI Chat | [Anthropic Claude API](https://anthropic.com) |
 | Animation | WebGL (vanilla, no library) |
+| Analytics | [Vercel Analytics](https://vercel.com/analytics) |
 | Hosting | [Vercel](https://vercel.com) (free) |
 | Built with | [Claude Code](https://claude.ai/code) |
 
@@ -88,12 +91,13 @@ src/
 │       ├── Sidebar.astro       ← Navigation
 │       └── Footer.astro
 ├── layouts/
-│   └── Layout.astro            ← Base layout + dark mode init
+│   └── Layout.astro            ← Base layout + dark mode + analytics
 ├── pages/
 │   ├── index.astro             ← Home
 │   ├── about.astro             ← Full about page
 │   ├── leadership.astro        ← Leadership philosophy
 │   ├── styleguide.astro        ← Design system docs
+│   ├── resume.astro            ← One-page resume (prerendered)
 │   ├── work/
 │   │   ├── index.astro         ← Work listing
 │   │   ├── ink.astro           ← Docusign Ink (coming soon)
@@ -105,21 +109,25 @@ src/
 ├── styles/
 │   └── global.css              ← Design tokens + global styles
 public/
+├── books/                      ← Local book cover images
 ├── JRU-black.svg               ← Logo (light mode)
 ├── JRU-white.svg               ← Logo (dark mode)
 ├── JR-Headshot-Circular.png    ← Headshot
-└── favicon.svg
+├── favicon.svg
+├── robots.txt
+└── resume.html                 ← Standalone resume (legacy)
 ```
 
 ---
 
-## Design system
+## Styleguide
 
 The site uses a token-based design system with CSS custom properties for seamless light/dark mode switching.
 
 ```css
-/* Accent color — Jonathan's brand orange */
---accent: #FF5F40;
+/* Accent colors */
+--accent: #FF5F40;        /* Primary orange */
+--accent-slate: #435663;  /* Secondary slate blue (WebGL dots, light mode) */
 
 /* Backgrounds */
 --bg:   #F8F8F6  /* light */  /  #0A0A08  /* dark */
@@ -157,8 +165,7 @@ To deploy your own version, import the repo into [Vercel](https://vercel.com) an
 
 **Jonathan Ruiz** is a Husband, Father of two, Sr. Product Design Manager at Docusign and co-leader of Friends of Figma Miami.
 
-This site was designed and built using Claude Code — no traditional engineering background required.
-It's proof that designers who embrace AI tools can ship real, production-quality products.
+This site was designed and built using Claude Code.
 
 - **Portfolio:** [jonathanruiz.net](https://jonathanruiz.net)
 - **LinkedIn:** [linkedin.com/in/jonaruiz](https://linkedin.com/in/jonaruiz)
