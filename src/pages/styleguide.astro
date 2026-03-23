@@ -4,63 +4,88 @@ import Sidebar from '../components/ui/Sidebar.astro';
 import Footer from '../components/ui/Footer.astro';
 
 const sections = [
-  { id: 'typography', label: 'Typography' },
-  { id: 'colors', label: 'Colors' },
-  { id: 'buttons', label: 'Buttons' },
-  { id: 'tags', label: 'Tags' },
-  { id: 'icons', label: 'Icons' },
-  { id: 'spacing', label: 'Spacing' },
-  { id: 'radius', label: 'Border Radius' },
-  { id: 'elevation', label: 'Elevation' },
-  { id: 'components', label: 'Components' },
+  { id: 'typography',    label: 'Typography' },
+  { id: 'colors',        label: 'Colors' },
+  { id: 'buttons',       label: 'Buttons' },
+  { id: 'tags',          label: 'Tags' },
+  { id: 'icons',         label: 'Icons' },
+  { id: 'spacing',       label: 'Spacing' },
+  { id: 'radius',        label: 'Border Radius' },
+  { id: 'elevation',     label: 'Elevation' },
+  { id: 'accessibility', label: 'Accessibility' },
+  { id: 'components',    label: 'Components' },
 ];
 
 const colorTokens = [
-  { token: '--bg',           label: 'Background',        light: '#F8F8F6', dark: '#0A0A08' },
-  { token: '--bg-2',         label: 'Surface',           light: '#EFEFEC', dark: '#141412' },
-  { token: '--bg-3',         label: 'Surface Raised',    light: '#E5E5E1', dark: '#1C1C1A' },
-  { token: '--text',         label: 'Text Primary',      light: '#0A0A08', dark: '#F0F0EC' },
-  { token: '--text-2',       label: 'Text Secondary',    light: '#3D3D3A', dark: '#AAAAA6' },
-  { token: '--text-3',       label: 'Text Tertiary',     light: '#767672', dark: '#717170' },
-  { token: '--accent',       label: 'Accent',            light: '#FF5F40', dark: '#FF5F40' },
-  { token: '--accent-hover', label: 'Accent Hover',      light: '#E54E30', dark: '#FF7A5C' },
-  { token: '--accent-light', label: 'Accent Tint',       light: '#FAE8E4', dark: '#1F0E08' },
-  { token: '--on-accent',    label: 'On Accent',         light: '#0A0A08', dark: '#0A0A08' },
-  { token: '--border',       label: 'Border',            light: '#E0E0DC', dark: '#222220' },
-  { token: '--color-online', label: 'Online',            light: '#22C55E', dark: '#22C55E' },
+  { token: '--bg',           label: 'Background',     light: '#F8F8F6', dark: '#0A0A08' },
+  { token: '--bg-2',         label: 'Surface',         light: '#EFEFEC', dark: '#141412' },
+  { token: '--bg-3',         label: 'Surface Raised',  light: '#E5E5E1', dark: '#1C1C1A' },
+  { token: '--text',         label: 'Text Primary',    light: '#0A0A08', dark: '#F0F0EC' },
+  { token: '--text-2',       label: 'Text Secondary',  light: '#3D3D3A', dark: '#AAAAA6' },
+  { token: '--text-3',       label: 'Text Tertiary',   light: '#767672', dark: '#717170' },
+  { token: '--accent',       label: 'Accent',          light: '#FF5F40', dark: '#FF5F40' },
+  { token: '--accent-hover', label: 'Accent Hover',    light: '#E54E30', dark: '#FF7A5C' },
+  { token: '--accent-light', label: 'Accent Tint',     light: '#FAE8E4', dark: '#1F0E08' },
+  { token: '--on-accent',    label: 'On Accent',       light: '#0A0A08', dark: '#0A0A08' },
+  { token: '--border',       label: 'Border',          light: '#E0E0DC', dark: '#222220' },
+  { token: '--color-online', label: 'Online',          light: '#22C55E', dark: '#22C55E' },
 ];
 
 const radiusTokens = [
-  { label: 'sm', value: '0.375rem / 6px',  class: 'rounded' },
-  { label: 'md', value: '0.5rem / 8px',    class: 'rounded-lg' },
-  { label: 'lg', value: '0.75rem / 12px',  class: 'rounded-xl' },
-  { label: 'full', value: '9999px',        class: 'rounded-full' },
+  { label: 'sm',   value: '0.375rem / 6px',  class: 'rounded' },
+  { label: 'md',   value: '0.5rem / 8px',    class: 'rounded-lg' },
+  { label: 'lg',   value: '0.75rem / 12px',  class: 'rounded-xl' },
+  { label: 'full', value: '9999px',           class: 'rounded-full' },
 ];
 
 const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
+
+const iconPaths = [
+  { name: 'user',          path: `<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>` },
+  { name: 'briefcase',     path: `<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>` },
+  { name: 'compass',       path: `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>` },
+  { name: 'shield',        path: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>` },
+  { name: 'layers',        path: `<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>` },
+  { name: 'globe',         path: `<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>` },
+  { name: 'message',       path: `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>` },
+  { name: 'github',        path: `<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>` },
+  { name: 'arrow-up-right',path: `<path d="M7 7h10v10M7 17 17 7"/>` },
+  { name: 'lock',          path: `<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>` },
+  { name: 'map-pin',       path: `<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>` },
+  { name: 'cloud-rain',    path: `<path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M16 14v6"/><path d="M8 14v6"/><path d="M12 16v6"/>` },
+  { name: 'cloud',         path: `<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>` },
+  { name: 'sun',           path: `<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>` },
+  { name: 'mic',           path: `<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/>` },
+  { name: 'book-open',     path: `<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>` },
+];
+
+const contrastPairs = [
+  { fg: '#F0F0EC', bg: '#0A0A08', label: '--text on --bg (dark)',     ratio: '17.8:1', pass: true },
+  { fg: '#AAAAA6', bg: '#0A0A08', label: '--text-2 on --bg (dark)',   ratio: '7.2:1',  pass: true },
+  { fg: '#FF5F40', bg: '#0A0A08', label: '--accent on --bg (dark)',   ratio: '5.1:1',  pass: true },
+  { fg: '#0A0A08', bg: '#F8F8F6', label: '--text on --bg (light)',    ratio: '19.6:1', pass: true },
+  { fg: '#3D3D3A', bg: '#F8F8F6', label: '--text-2 on --bg (light)',  ratio: '10.2:1', pass: true },
+  { fg: '#767672', bg: '#F8F8F6', label: '--text-3 on --bg (light)',  ratio: '4.6:1',  pass: true },
+  { fg: '#0A0A08', bg: '#FF5F40', label: '--on-accent on --accent',   ratio: '5.2:1',  pass: true },
+];
 ---
 
-<Layout title="Styleguide — Jonathan Ruiz" description="Design system reference for jonathanruiz.dev — tokens, typography, components, and more.">
+<Layout title="Styleguide — Jonathan Ruiz" description="Design system reference for jonathanruiz.net — tokens, typography, components, and more.">
   <Sidebar currentPath={Astro.url.pathname} />
 
   <div class="content-area pt-14 md:pt-0">
-    <main>
+    <main id="main-content">
       <div class="section-padding">
         <div class="section-container">
 
-          <!-- Back home -->
           <a href="/" class="back-home">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
             Back home
           </a>
 
-          <!-- Page header -->
           <div class="mb-12">
             <p class="label mb-3">Styleguide</p>
-            <h1
-              class="section-title mb-4"
-              style="font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em;"
-            >
+            <h1 class="section-title mb-4" style="font-size: clamp(1.75rem, 4vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em;">
               Design system reference
             </h1>
             <p class="body-text max-w-md">
@@ -102,24 +127,24 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
                     <p class="label mb-3 text-[10px]">DM Sans — Primary</p>
                     <div class="space-y-4">
                       <div>
-                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Semibold 600 · clamp(2.25rem, 5vw, 3.5rem)</p>
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Semibold 600 · clamp(2rem, 4vw, 3rem) · −0.02em</p>
                         <p class="font-semibold leading-tight" style="font-size: clamp(2rem, 4vw, 3rem); color: var(--text); letter-spacing: -0.02em;">Display Headline</p>
                       </div>
                       <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
-                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Semibold 600 · 1.75rem</p>
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Semibold 600 · 1.75rem · −0.015em</p>
                         <p class="text-2xl font-semibold" style="color: var(--text); letter-spacing: -0.015em;">Section Title</p>
                       </div>
                       <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
-                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Medium 500 · 1rem</p>
-                        <p class="text-base font-medium" style="color: var(--text);">Body Medium — for labels and emphasis</p>
-                      </div>
-                      <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
-                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular 400 · 1rem · leading-relaxed</p>
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Light 300 · 1rem · 1.8 — .body-text</p>
                         <p class="body-text">Body text — used for descriptions and prose. Designed to be readable at comfortable line lengths.</p>
                       </div>
                       <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
-                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular 400 · 0.875rem</p>
-                        <p class="text-sm" style="color: var(--text-2);">Small text — metadata, captions, supporting info</p>
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular 400 · 0.9rem · 1.75 — body-sm</p>
+                        <p style="font-size: 0.9rem; line-height: 1.75; color: var(--text-2);">Body small — card descriptions, secondary content</p>
+                      </div>
+                      <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular 400 · 0.78rem · 1.6 — small</p>
+                        <p style="font-size: 0.78rem; line-height: 1.6; color: var(--text-2);">Small text — metadata, captions, supporting info</p>
                       </div>
                     </div>
                   </div>
@@ -128,12 +153,12 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
                     <p class="label mb-3 text-[10px]">DM Mono — Secondary</p>
                     <div class="space-y-4">
                       <div>
-                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular · 11px · tracking-wide · uppercase</p>
-                        <p class="label">Section Label</p>
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular 400 · 0.8rem · 1.6 — mono</p>
+                        <p style="font-family: 'DM Mono', monospace; font-size: 0.8rem; line-height: 1.6; color: var(--text-2);">Code, tags, metadata, numbers, timestamps</p>
                       </div>
                       <div style="border-top: 1px solid var(--border); padding-top: 1rem;">
-                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Regular · 12px</p>
-                        <p style="font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--text-2);">Code, tags, metadata, numbers</p>
+                        <p class="text-xs mb-1" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Medium 500 · 0.62rem · uppercase · 0.12em — .label</p>
+                        <p class="label">Section Label</p>
                       </div>
                     </div>
                   </div>
@@ -186,37 +211,19 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
                 <h2 class="sg-section-title">Tags</h2>
                 <div class="card mt-6">
                   <div class="flex flex-wrap gap-2 items-center">
-                    <span
-                      class="px-2.5 py-1 text-xs rounded-md"
-                      style="background-color: var(--bg-2); color: var(--text-2); border: 1px solid var(--border);"
-                    >
-                      Design Systems
-                    </span>
-                    <span
-                      class="px-2.5 py-1 text-xs rounded-md"
-                      style="background-color: var(--bg-2); color: var(--text-2); border: 1px solid var(--border);"
-                    >
-                      Leadership
-                    </span>
-                    <span
-                      class="px-2 py-0.5 text-xs rounded"
-                      style="background-color: var(--bg-2); color: var(--text-3); border: 1px solid var(--border); font-family: 'DM Mono', monospace;"
-                    >
-                      Systems
-                    </span>
-                    <span
-                      class="px-2 py-0.5 text-xs rounded"
-                      style="background-color: var(--accent-light); color: var(--accent); border: 1px solid var(--accent);"
-                    >
-                      Active
-                    </span>
+                    <span class="px-2.5 py-1 text-xs rounded-md" style="background-color: var(--bg-2); color: var(--text-2); border: 1px solid var(--border);">Design Systems</span>
+                    <span class="px-2.5 py-1 text-xs rounded-md" style="background-color: var(--bg-2); color: var(--text-2); border: 1px solid var(--border);">Leadership</span>
+                    <span class="px-2 py-0.5 text-xs rounded" style="background-color: var(--bg-2); color: var(--text-3); border: 1px solid var(--border); font-family: 'DM Mono', monospace;">Systems</span>
+                    <span class="px-2 py-0.5 text-xs rounded" style="background-color: var(--accent-light); color: var(--accent); border: 1px solid var(--accent);">Active</span>
                     <span class="label" style="font-size: 11px;">LABEL</span>
+                    <span class="coming-badge">Coming soon</span>
                   </div>
                   <div class="mt-6 pt-5 space-y-1.5 text-xs" style="border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; color: var(--text-3);">
-                    <p>Default — bg-2 + border + text-2</p>
+                    <p>Default tag — bg-2 + border + text-2</p>
                     <p>Mono tag — bg-2 + border + text-3 + DM Mono</p>
                     <p>Accent tag — accent-light bg + accent border + accent text</p>
                     <p>Label — .label utility class (DM Mono, 11px, uppercase, tracking)</p>
+                    <p>Coming badge — .coming-badge (DM Mono, 0.58rem, pill border, text-3)</p>
                   </div>
                 </div>
               </section>
@@ -226,33 +233,24 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
                 <h2 class="sg-section-title">Icons</h2>
                 <div class="card mt-6">
                   <p class="body-text text-sm mb-5">Lucide icon set. All rendered as inline SVG. Standard sizes: 14px, 16px, 18px.</p>
-                  <div class="flex flex-wrap gap-4 items-center">
-                    {[
-                      `<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
-                      `<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>`,
-                      `<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>`,
-                      `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>`,
-                      `<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>`,
-                      `<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>`,
-                      `<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>`,
-                      `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`,
-                    ].map((path) => (
-                      <div
-                        class="w-9 h-9 rounded-lg flex items-center justify-center"
-                        style="background-color: var(--bg-3);"
-                      >
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="1.75"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          style="color: var(--text-2);"
-                          set:html={path}
-                        />
+                  <div class="flex flex-wrap gap-3 items-center">
+                    {iconPaths.map((icon) => (
+                      <div class="flex flex-col items-center gap-1.5">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background-color: var(--bg-3);">
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.75"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            style="color: var(--text-2);"
+                            set:html={icon.path}
+                          />
+                        </div>
+                        <span style="font-family: 'DM Mono', monospace; font-size: 0.55rem; color: var(--text-3); text-align: center;">{icon.name}</span>
                       </div>
                     ))}
                   </div>
@@ -273,10 +271,7 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
                     {spacingScale.map((s) => (
                       <div class="flex items-center gap-4">
                         <span class="w-12 text-xs flex-shrink-0" style="font-family: 'DM Mono', monospace; color: var(--text-3);">{s}</span>
-                        <div
-                          class="h-4 rounded"
-                          style={`width: ${s * 4}px; background-color: var(--accent-light); border: 1px solid var(--accent);`}
-                        />
+                        <div class="h-4 rounded" style={`width: ${s * 4}px; background-color: var(--accent-light); border: 1px solid var(--accent);`} />
                         <span class="text-xs" style="font-family: 'DM Mono', monospace; color: var(--text-3);">{s * 4}px</span>
                       </div>
                     ))}
@@ -291,10 +286,7 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
                   <div class="flex flex-wrap gap-6 items-end">
                     {radiusTokens.map((r) => (
                       <div class="flex flex-col items-center gap-2">
-                        <div
-                          class={`w-14 h-14 ${r.class}`}
-                          style="background-color: var(--bg-3); border: 1px solid var(--border);"
-                        />
+                        <div class={`w-14 h-14 ${r.class}`} style="background-color: var(--bg-3); border: 1px solid var(--border);" />
                         <p class="text-[11px] text-center" style="font-family: 'DM Mono', monospace; color: var(--accent);">{r.label}</p>
                         <p class="text-[10px] text-center" style="font-family: 'DM Mono', monospace; color: var(--text-3);">{r.value}</p>
                       </div>
@@ -309,33 +301,88 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
                 <div class="card mt-6">
                   <div class="flex flex-wrap gap-6 items-end">
                     <div class="flex flex-col gap-2 items-center">
-                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border);"/>
+                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border);" />
                       <p class="text-[11px]" style="font-family: 'DM Mono', monospace; color: var(--text-3);">flat</p>
                     </div>
                     <div class="flex flex-col gap-2 items-center">
-                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.08);"/>
+                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.08);" />
                       <p class="text-[11px]" style="font-family: 'DM Mono', monospace; color: var(--text-3);">sm shadow</p>
                     </div>
                     <div class="flex flex-col gap-2 items-center">
-                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.14);"/>
+                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.14);" />
                       <p class="text-[11px]" style="font-family: 'DM Mono', monospace; color: var(--text-3);">md shadow</p>
                     </div>
                     <div class="flex flex-col gap-2 items-center">
-                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.18);"/>
+                      <div class="w-24 h-16 rounded-xl" style="background-color: var(--bg-2); border: 1px solid var(--border); box-shadow: 0 24px 64px rgba(0,0,0,0.18);" />
                       <p class="text-[11px]" style="font-family: 'DM Mono', monospace; color: var(--text-3);">lg shadow</p>
                     </div>
                   </div>
                 </div>
               </section>
 
+              <!-- ── Accessibility ───────────────────────────────── -->
+              <section id="accessibility">
+                <h2 class="sg-section-title">Accessibility</h2>
+                <div class="space-y-4 mt-6">
+
+                  <!-- Focus style -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Focus Ring</p>
+                    <div class="card">
+                      <p class="text-xs mb-4" style="color: var(--text-3); font-family: 'DM Mono', monospace;">outline: 2px solid var(--accent) · offset: 3px · border-radius: 4px</p>
+                      <div class="flex flex-wrap gap-3 items-center">
+                        <button class="btn-primary sg-focus-demo">Tab to focus me</button>
+                        <a href="#" class="btn-ghost sg-focus-demo">Or this link</a>
+                        <button class="icon-btn sg-focus-demo" aria-label="Icon example">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Skip nav -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Skip Navigation</p>
+                    <div class="card">
+                      <p class="text-xs mb-3" style="color: var(--text-3); font-family: 'DM Mono', monospace;">Appears on Tab keypress · links to #main-content</p>
+                      <div class="sg-skip-demo">
+                        <a href="#main-content" class="sg-skip-preview">Skip to main content</a>
+                        <p class="text-xs mt-2" style="color: var(--text-3);">^ visible only on keyboard focus (simulated above)</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Contrast table -->
+                  <div>
+                    <p class="label text-[10px] mb-3">WCAG AA Contrast</p>
+                    <div class="card">
+                      <p class="text-xs mb-4" style="color: var(--text-3); font-family: 'DM Mono', monospace;">AA requires ≥ 4.5:1 normal text · ≥ 3:1 large text / UI</p>
+                      <div class="space-y-2">
+                        {contrastPairs.map((pair) => (
+                          <div class="flex items-center gap-3 py-2" style="border-bottom: 1px solid var(--border);">
+                            <div class="w-8 h-8 rounded flex-shrink-0 flex items-center justify-center" style={`background-color: ${pair.bg};`}>
+                              <span style={`color: ${pair.fg}; font-size: 0.6rem; font-weight: 700; font-family: 'DM Mono', monospace;`}>Aa</span>
+                            </div>
+                            <p class="flex-1 text-xs" style="color: var(--text-2);">{pair.label}</p>
+                            <span style={`font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-3);`}>{pair.ratio}</span>
+                            <span class={pair.pass ? 'contrast-pass' : 'contrast-fail'}>{pair.pass ? 'AA ✓' : 'Fail'}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </section>
+
               <!-- ── Components ──────────────────────────────────── -->
               <section id="components">
                 <h2 class="sg-section-title">Components</h2>
-                <div class="space-y-4 mt-6">
+                <div class="space-y-8 mt-6">
 
                   <!-- Card -->
                   <div>
-                    <p class="label text-[10px] mb-3">Card</p>
+                    <p class="label text-[10px] mb-3">Base Card</p>
                     <div class="card group max-w-sm">
                       <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-4" style="background-color: var(--accent-light);">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
@@ -344,6 +391,100 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
                       </div>
                       <h3 class="text-sm font-semibold mb-2" style="color: var(--text);">Card Title</h3>
                       <p class="text-sm leading-relaxed" style="color: var(--text-2);">Card body text with a comfortable reading size and relaxed line height.</p>
+                    </div>
+                  </div>
+
+                  <!-- Coming Soon Badge -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Coming Soon Badge — Work item badge</p>
+                    <div class="card">
+                      <div class="flex items-center gap-3 flex-wrap">
+                        <span class="text-base font-medium" style="color: var(--text);">Docusign Ink Design System<span class="coming-badge">Coming soon</span></span>
+                      </div>
+                      <p class="text-xs mt-3" style="font-family: 'DM Mono', monospace; color: var(--text-3);">.coming-badge · DM Mono · 0.58rem · pill · border · text-3</p>
+                    </div>
+                  </div>
+
+                  <!-- Community Card -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Community Card — With hover arrow</p>
+                    <a href="#" class="card group sg-community-card" style="text-decoration: none; display: block; position: relative; max-width: 320px;">
+                      <svg class="sg-card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 7h10v10M7 17 17 7"/>
+                      </svg>
+                      <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-4" style="background-color: var(--accent-light);">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+                          <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/>
+                        </svg>
+                      </div>
+                      <h3 class="text-sm font-semibold mb-2" style="color: var(--text);">Friends of Figma Miami</h3>
+                      <p class="text-sm leading-relaxed" style="color: var(--text-2);">Co-leading the Miami chapter — organizing events and workshops for the local design community.</p>
+                    </a>
+                    <p class="text-xs mt-2" style="font-family: 'DM Mono', monospace; color: var(--text-3);">Arrow top-right · opacity 0 → 1 on hover · translate(1px, -1px)</p>
+                  </div>
+
+                  <!-- Profile Card -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Profile Card</p>
+                    <div class="sg-profile-card">
+                      <div class="sg-profile-img-placeholder">
+                        <span style="font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--text-3);">headshot</span>
+                      </div>
+                      <div class="sg-profile-body">
+                        <p class="sg-profile-label">Current Role</p>
+                        <p class="sg-profile-role">Sr. Product Design Manager</p>
+                        <p class="sg-profile-company">Docusign · Miami, FL</p>
+                        <div class="sg-profile-divider"></div>
+                        <a href="#" class="sg-profile-link">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10M7 17 17 7"/></svg>
+                          LinkedIn
+                        </a>
+                        <a href="#" class="sg-profile-link">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10M7 17 17 7"/></svg>
+                          Email
+                        </a>
+                        <a href="#" class="sg-profile-link" style="border-bottom: none;">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10M7 17 17 7"/></svg>
+                          Resume
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Book Cover Card -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Book Cover Card</p>
+                    <div class="flex flex-wrap gap-4">
+                      <div class="sg-book-card">
+                        <div class="sg-book-cover-wrap">
+                          <div class="sg-book-cover-placeholder">cover</div>
+                        </div>
+                        <p class="sg-book-title">UX for AI</p>
+                        <p class="sg-book-author">Greg Nudelman</p>
+                      </div>
+                      <div class="sg-book-card">
+                        <div class="sg-book-cover-wrap">
+                          <div class="sg-book-cover-placeholder">cover</div>
+                        </div>
+                        <p class="sg-book-title">Sentient Design</p>
+                        <p class="sg-book-author">Josh Clark</p>
+                        <span class="sg-book-badge">Pre-ordered · June 2026</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Weather Item -->
+                  <div>
+                    <p class="label text-[10px] mb-3">Weather Item — Currently card</p>
+                    <div class="card" style="max-width: 280px;">
+                      <p class="sg-currently-heading">Currently</p>
+                      <div class="sg-currently-item">
+                        <span class="sg-currently-key">weather</span>
+                        <span class="sg-currently-val">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent); display: inline; vertical-align: middle; margin-right: 3px;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                          82°F · Sunny · Miami
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -370,17 +511,17 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
                   <div>
                     <p class="label text-[10px] mb-3">Icon Button</p>
                     <div class="flex gap-2">
-                      <button class="icon-btn">
+                      <button class="icon-btn" aria-label="LinkedIn">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
                         </svg>
                       </button>
-                      <button class="icon-btn">
+                      <button class="icon-btn" aria-label="Dribbble">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                           <circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/>
                         </svg>
                       </button>
-                      <button class="icon-btn">
+                      <button class="icon-btn" aria-label="Email">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                           <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                         </svg>
@@ -411,6 +552,206 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--border);
   }
+
+  /* Coming badge */
+  .coming-badge {
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem;
+    border-radius: 100px;
+    font-family: 'DM Mono', monospace;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+  }
+
+  /* Community card arrow */
+  .sg-card-arrow {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+  .sg-community-card:hover .sg-card-arrow {
+    opacity: 1;
+    transform: translate(1px, -1px);
+  }
+
+  /* Profile card */
+  .sg-profile-card {
+    max-width: 240px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .sg-profile-img-placeholder {
+    height: 120px;
+    background: var(--bg-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sg-profile-body { padding: 1rem; }
+  .sg-profile-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+  .sg-profile-role {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+  }
+  .sg-profile-company {
+    font-size: 0.72rem;
+    color: var(--text-3);
+    margin-bottom: 0.75rem;
+  }
+  .sg-profile-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 0.75rem;
+  }
+  .sg-profile-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--text-2);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .sg-profile-link:hover { color: var(--accent); }
+
+  /* Book card */
+  .sg-book-card {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+  }
+  .sg-book-cover-wrap {
+    width: 100%;
+    aspect-ratio: 2/3;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border);
+  }
+  .sg-book-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--bg-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-3);
+  }
+  .sg-book-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 0.2rem;
+  }
+  .sg-book-author {
+    font-size: 0.65rem;
+    color: var(--text-3);
+    margin-bottom: 0.35rem;
+  }
+  .sg-book-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    padding: 0.1rem 0.4rem;
+    border-radius: 100px;
+  }
+
+  /* Currently / Weather */
+  .sg-currently-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    margin-bottom: 0.75rem;
+  }
+  .sg-currently-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.4rem 0;
+  }
+  .sg-currently-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-3);
+    min-width: 60px;
+  }
+  .sg-currently-val {
+    font-size: 0.82rem;
+    color: var(--text-2);
+  }
+
+  /* Accessibility */
+  .sg-focus-demo:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .sg-skip-preview {
+    display: inline-flex;
+    align-items: center;
+    background: var(--accent);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0 0 8px 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .contrast-pass {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #22C55E;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    padding: 0.1rem 0.4rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .contrast-fail {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    padding: 0.1rem 0.4rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 </style>
 
 <script>
@@ -428,9 +769,7 @@ const spacingScale = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24];
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (entry.isIntersecting) {
-          setActive(entry.target.id);
-        }
+        if (entry.isIntersecting) setActive(entry.target.id);
       }
     },
     { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
