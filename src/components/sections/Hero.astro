@@ -85,155 +85,167 @@
 </style>
 
 <script>
-const canvas = document.getElementById('webgl-canvas') as HTMLCanvasElement;
-const gl = canvas?.getContext('webgl');
+(function() {
+  const canvas = document.getElementById('webgl-canvas');
+  if (!canvas) return;
 
-if (gl) {
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+
   const vsSource = `
-    attribute vec2 a_pos;
-    attribute float a_baseX;
-    attribute float a_baseY;
+    attribute vec2 a_basePos;
     uniform vec2 u_mouse;
     uniform vec2 u_resolution;
     uniform float u_time;
-    varying float v_dist;
-    varying float v_alpha;
+    varying float v_influence;
+
     void main() {
-      vec2 base = vec2(a_baseX, a_baseY);
       vec2 mouseNorm = u_mouse / u_resolution;
       mouseNorm.y = 1.0 - mouseNorm.y;
-      float dist = distance(base, mouseNorm);
-      float influence = smoothstep(0.25, 0.0, dist);
-      float angle = atan(base.y - mouseNorm.y, base.x - mouseNorm.x);
-      float ripple = sin(dist * 18.0 - u_time * 3.0) * 0.012 * influence;
-      float push = influence * 0.04;
-      vec2 displaced = base;
-      displaced.x += cos(angle) * (push + ripple);
-      displaced.y += sin(angle) * (push + ripple);
-      vec2 clip = (displaced * 2.0) - 1.0;
+
+      float dist = distance(a_basePos, mouseNorm);
+      float influence = smoothstep(0.3, 0.0, dist);
+
+      float angle = atan(
+        a_basePos.y - mouseNorm.y,
+        a_basePos.x - mouseNorm.x
+      );
+      float push = influence * 0.05;
+      float ripple = sin(dist * 15.0 - u_time * 2.5) * 0.015 * influence;
+
+      vec2 pos = a_basePos;
+      pos.x += cos(angle) * (push + ripple);
+      pos.y += sin(angle) * (push + ripple);
+
+      vec2 clip = pos * 2.0 - 1.0;
       clip.y *= -1.0;
+
       gl_Position = vec4(clip, 0.0, 1.0);
-      gl_PointSize = mix(1.5, 3.5, influence) + sin(u_time + a_baseX * 10.0) * 0.3;
-      v_dist = dist;
-      v_alpha = influence;
+      gl_PointSize = mix(2.0, 5.0, influence);
+      v_influence = influence;
     }
   `;
+
   const fsSource = `
     precision mediump float;
-    varying float v_alpha;
+    varying float v_influence;
     uniform float u_isDark;
+
     void main() {
       vec2 coord = gl_PointCoord - 0.5;
+      if (length(coord) > 0.5) discard;
+
       float r = length(coord);
-      if (r > 0.5) discard;
-      float baseAlpha = mix(0.3, 0.15, u_isDark);
-      float alpha = mix(baseAlpha, 0.9, v_alpha);
-      alpha *= (1.0 - r * 1.5);
-      vec3 baseDark = vec3(0.4, 0.4, 0.38);
-      vec3 baseLight = vec3(0.45, 0.43, 0.41);
-      vec3 baseColor = mix(baseLight, baseDark, u_isDark);
-      vec3 accent = vec3(1.0, 0.373, 0.251);
-      vec3 color = mix(baseColor, accent, v_alpha * 0.9);
+      float alpha = (1.0 - r * 2.0);
+
+      float baseAlpha = mix(0.35, 0.18, u_isDark);
+      alpha *= mix(baseAlpha, 0.95, v_influence);
+
+      vec3 baseDark  = vec3(0.40, 0.40, 0.38);
+      vec3 baseLight = vec3(0.50, 0.48, 0.46);
+      vec3 accent    = vec3(1.0, 0.373, 0.251);
+
+      vec3 base  = mix(baseLight, baseDark, u_isDark);
+      vec3 color = mix(base, accent, v_influence * 0.9);
+
       gl_FragColor = vec4(color, alpha);
     }
   `;
-  function createShader(gl: WebGLRenderingContext, type: number, src: string) {
-    const s = gl.createShader(type)!;
+
+  function makeShader(type, src) {
+    const s = gl.createShader(type);
     gl.shaderSource(s, src);
     gl.compileShader(s);
     return s;
   }
-  const vs = createShader(gl, gl.VERTEX_SHADER, vsSource);
-  const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
-  const program = gl.createProgram()!;
-  gl.attachShader(program, vs);
-  gl.attachShader(program, fs);
-  gl.linkProgram(program);
-  gl.useProgram(program);
-  let cols: number, rows: number, positions: Float32Array, baseXs: Float32Array, baseYs: Float32Array;
+
+  const prog = gl.createProgram();
+  gl.attachShader(prog, makeShader(gl.VERTEX_SHADER, vsSource));
+  gl.attachShader(prog, makeShader(gl.FRAGMENT_SHADER, fsSource));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+
+  const basePosLoc = gl.getAttribLocation(prog, 'a_basePos');
+  const mouseLoc   = gl.getUniformLocation(prog, 'u_mouse');
+  const resLoc     = gl.getUniformLocation(prog, 'u_resolution');
+  const timeLoc    = gl.getUniformLocation(prog, 'u_time');
+  const darkLoc    = gl.getUniformLocation(prog, 'u_isDark');
+
+  let cols, rows, basePositions;
+
   function buildGrid() {
-    cols = Math.floor(canvas.width / 28);
-    rows = Math.floor(canvas.height / 28);
+    const spacing = 32;
+    cols = Math.ceil(canvas.width / spacing);
+    rows = Math.ceil(canvas.height / spacing);
     const count = cols * rows;
-    positions = new Float32Array(count * 2);
-    baseXs = new Float32Array(count);
-    baseYs = new Float32Array(count);
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const i = row * cols + col;
-        const nx = (col + 0.5) / cols;
-        const ny = (row + 0.5) / rows;
-        positions[i * 2] = nx;
-        positions[i * 2 + 1] = ny;
-        baseXs[i] = nx;
-        baseYs[i] = ny;
+    basePositions = new Float32Array(count * 2);
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const i = (r * cols + c) * 2;
+        basePositions[i]     = (c + 0.5) / cols;
+        basePositions[i + 1] = (r + 0.5) / rows;
       }
     }
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, basePositions, gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(basePosLoc);
+    gl.vertexAttribPointer(basePosLoc, 2, gl.FLOAT, false, 0, 0);
   }
-  const posBuffer = gl.createBuffer()!;
-  const baseXBuffer = gl.createBuffer()!;
-  const baseYBuffer = gl.createBuffer()!;
-  function uploadBuffers() {
-    gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.DYNAMIC_DRAW);
-    const posLoc = gl.getAttribLocation(program, 'a_pos');
-    gl.enableVertexAttribArray(posLoc);
-    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, baseXBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, baseXs, gl.STATIC_DRAW);
-    const bxLoc = gl.getAttribLocation(program, 'a_baseX');
-    gl.enableVertexAttribArray(bxLoc);
-    gl.vertexAttribPointer(bxLoc, 1, gl.FLOAT, false, 0, 0);
-    gl.bindBuffer(gl.ARRAY_BUFFER, baseYBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, baseYs, gl.STATIC_DRAW);
-    const byLoc = gl.getAttribLocation(program, 'a_baseY');
-    gl.enableVertexAttribArray(byLoc);
-    gl.vertexAttribPointer(byLoc, 1, gl.FLOAT, false, 0, 0);
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width  = rect.width;
+    canvas.height = rect.height;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    buildGrid();
   }
-  const mouseLoc = gl.getUniformLocation(program, 'u_mouse');
-  const resLoc = gl.getUniformLocation(program, 'u_resolution');
-  const timeLoc = gl.getUniformLocation(program, 'u_time');
-  const isDarkLoc = gl.getUniformLocation(program, 'u_isDark');
-  let mouse = { x: -9999, y: -9999 };
-  let smoothMouse = { x: -9999, y: -9999 };
-  canvas.addEventListener('mousemove', (e) => {
+
+  let mouse  = { x: -9999, y: -9999 };
+  let smooth = { x: -9999, y: -9999 };
+
+  canvas.parentElement.addEventListener('mousemove', function(e) {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
   });
-  canvas.addEventListener('mouseleave', () => {
+
+  canvas.parentElement.addEventListener('mouseleave', function() {
     mouse.x = -9999;
     mouse.y = -9999;
   });
-  function resize() {
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-    gl.viewport(0, 0, canvas.width, canvas.height);
-    buildGrid();
-    uploadBuffers();
-  }
+
+  resize();
   setTimeout(resize, 100);
   window.addEventListener('resize', resize);
+
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-  const startTime = Date.now();
+
+  const start = Date.now();
+
   function render() {
-    const t = (Date.now() - startTime) / 1000;
+    const t = (Date.now() - start) / 1000;
+
+    smooth.x += (mouse.x - smooth.x) * 0.1;
+    smooth.y += (mouse.y - smooth.y) * 0.1;
+
     const isDark = document.documentElement.getAttribute('data-theme') === 'dark' ? 1.0 : 0.0;
-    smoothMouse.x += (mouse.x - smoothMouse.x) * 0.08;
-    smoothMouse.y += (mouse.y - smoothMouse.y) * 0.08;
+
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.uniform2f(mouseLoc, smoothMouse.x, smoothMouse.y);
+
+    gl.uniform2f(mouseLoc, smooth.x, smooth.y);
     gl.uniform2f(resLoc, canvas.width, canvas.height);
     gl.uniform1f(timeLoc, t);
-    gl.uniform1f(isDarkLoc, isDark);
-    gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.DYNAMIC_DRAW);
+    gl.uniform1f(darkLoc, isDark);
+
     gl.drawArrays(gl.POINTS, 0, cols * rows);
     requestAnimationFrame(render);
   }
+
   render();
-}
+})();
 </script>
