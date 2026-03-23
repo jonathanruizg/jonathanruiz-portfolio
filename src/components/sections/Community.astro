@@ -35,7 +35,11 @@ const cards = [
 
     <div class="grid sm:grid-cols-2 gap-4">
       {cards.map((card) => (
-        <a href={card.href} target="_blank" rel="noopener noreferrer" class="card group" style="text-decoration: none; display: block;">
+        <a href={card.href} target="_blank" rel="noopener noreferrer" class="card group" style="text-decoration: none; display: block; position: relative;">
+          <!-- Arrow -->
+          <svg class="card-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 7h10v10M7 17 17 7"/>
+          </svg>
           <!-- Icon -->
           <div
             class="w-9 h-9 rounded-lg flex items-center justify-center mb-4 flex-shrink-0 transition-colors duration-150"
@@ -66,3 +70,18 @@ const cards = [
     </div>
   </div>
 </section>
+
+<style>
+  .card-arrow {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+  .card:hover .card-arrow {
+    opacity: 1;
+    transform: translate(1px, -1px);
+  }
+</style>
