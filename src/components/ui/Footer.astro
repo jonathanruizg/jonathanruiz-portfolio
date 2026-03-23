@@ -1,10 +1,11 @@
 ---
 ---
 
-<footer class="section-divider footer-root">
+<footer class="footer-root">
   <div class="section-container">
     <div class="footer-inner">
-      <p class="footer-copy">&copy; 2026 Jonathan Ruiz &middot; Designed &amp; built using Astro, Tailwind, and Claude Code.</p>
+      <p class="footer-copy">&copy; 2026 Jonathan Ruiz</p>
+      <p class="footer-center">Designed &amp; built with Astro, Tailwind &amp; Claude Code</p>
       <div class="footer-links">
         <a href="/styleguide">Styleguide</a>
         <span class="footer-sep">·</span>
@@ -18,49 +19,64 @@
 
 <style>
   .footer-root {
-    padding-top: 2rem;
+    border-top: 1px solid var(--border);
     padding-bottom: 5rem;
   }
 
   .footer-inner {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
+    align-items: center;
+    padding: 1.25rem 0;
+    gap: 1rem;
   }
 
-  .footer-copy {
+  .footer-copy,
+  .footer-center {
     font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--text-3);
     margin: 0;
+    white-space: nowrap;
+  }
+
+  .footer-center {
+    flex: 1;
+    text-align: center;
   }
 
   .footer-links {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    white-space: nowrap;
     flex-shrink: 0;
   }
   .footer-links a {
     font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--text-3);
     text-decoration: none;
     transition: color 0.15s;
   }
   .footer-links a:hover { color: var(--text); }
   .footer-sep {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--text-3);
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 640px) {
     .footer-inner {
       flex-direction: column;
-      align-items: center;
       text-align: center;
       gap: 0.75rem;
+    }
+    .footer-copy,
+    .footer-center {
+      white-space: normal;
+    }
+    .footer-center {
+      flex: unset;
     }
   }
 </style>
