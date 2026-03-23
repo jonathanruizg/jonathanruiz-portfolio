@@ -5,6 +5,23 @@
   <!-- WebGL dot grid -->
   <canvas id="webgl-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></canvas>
 
+  <script>
+    setTimeout(() => {
+      const canvas = document.getElementById('webgl-canvas');
+      console.log('Canvas exists:', !!canvas);
+      console.log('Canvas width:', canvas?.width);
+      console.log('Canvas height:', canvas?.height);
+      console.log('Canvas rect:', JSON.stringify(canvas?.getBoundingClientRect()));
+
+      const gl = canvas?.getContext('webgl');
+      console.log('WebGL context:', !!gl);
+
+      const parent = canvas?.parentElement;
+      console.log('Parent tag:', parent?.tagName);
+      console.log('Parent rect:', JSON.stringify(parent?.getBoundingClientRect()));
+    }, 500);
+  </script>
+
   <div class="section-container w-full" style="position: relative; z-index: 2;">
     <!-- Headshot: above h1, left aligned -->
     <img
