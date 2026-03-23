@@ -20,6 +20,7 @@
     --on-accent: #0A0A08;
     --border: #E0E0DC;
     --color-online: #22C55E;
+    --accent-slate: #435663;
   }
 
   [data-theme="dark"] {
@@ -35,6 +36,7 @@
     --on-accent: #0A0A08;
     --border: #222220;
     --color-online: #22C55E;
+    --accent-slate: #7BA3B8;
   }
 
   html {

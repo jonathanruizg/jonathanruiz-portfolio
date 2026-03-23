@@ -97,6 +97,7 @@
     uniform vec2 u_mouse;
     uniform vec2 u_resolution;
     uniform float u_time;
+    uniform float u_isDark;
     varying float v_influence;
 
     void main() {
@@ -120,7 +121,8 @@
       clip.y *= -1.0;
 
       gl_Position = vec4(clip, 0.0, 1.0);
-      gl_PointSize = mix(2.0, 5.0, influence);
+      float sizeMod = mix(3.0, 1.5, u_isDark);
+      gl_PointSize = sizeMod + mix(0.0, 3.0, influence);
       v_influence = influence;
     }
   `;
@@ -137,11 +139,11 @@
       float r = length(coord);
       float alpha = (1.0 - r * 2.0);
 
-      float baseAlpha = mix(0.45, 0.18, u_isDark);
+      float baseAlpha = mix(0.7, 0.18, u_isDark);
       alpha *= mix(baseAlpha, 0.95, v_influence);
 
       vec3 baseDark  = vec3(0.40, 0.40, 0.38);
-      vec3 baseLight = vec3(0.26, 0.34, 0.39);
+      vec3 baseLight = vec3(0.18, 0.24, 0.28);
       vec3 accent    = vec3(1.0, 0.373, 0.251);
 
       vec3 base  = mix(baseLight, baseDark, u_isDark);
