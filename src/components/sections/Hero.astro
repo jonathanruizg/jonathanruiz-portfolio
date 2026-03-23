@@ -111,7 +111,8 @@
         a_basePos.x - mouseNorm.x
       );
       float push = influence * 0.05;
-      float ripple = sin(dist * 15.0 - u_time * 2.5) * 0.015 * influence;
+      float ripple = sin(dist * 15.0 - u_time * 2.5)
+                     * 0.015 * influence;
 
       vec2 pos = a_basePos;
       pos.x += cos(angle) * (push + ripple);
@@ -121,7 +122,7 @@
       clip.y *= -1.0;
 
       gl_Position = vec4(clip, 0.0, 1.0);
-      float sizeMod = mix(3.0, 1.5, u_isDark);
+      float sizeMod = mix(3.5, 1.5, u_isDark);
       gl_PointSize = sizeMod + mix(0.0, 3.0, influence);
       v_influence = influence;
     }
@@ -138,7 +139,6 @@
 
       float r = length(coord);
       float alpha = (1.0 - r * 2.0);
-
       float baseAlpha = mix(0.7, 0.18, u_isDark);
       alpha *= mix(baseAlpha, 0.95, v_influence);
 
@@ -157,13 +157,27 @@
     const s = gl.createShader(type);
     gl.shaderSource(s, src);
     gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+      console.error('Shader error:', gl.getShaderInfoLog(s));
+      return null;
+    }
     return s;
   }
 
+  const vs = makeShader(gl.VERTEX_SHADER, vsSource);
+  const fs = makeShader(gl.FRAGMENT_SHADER, fsSource);
+  if (!vs || !fs) return;
+
   const prog = gl.createProgram();
-  gl.attachShader(prog, makeShader(gl.VERTEX_SHADER, vsSource));
-  gl.attachShader(prog, makeShader(gl.FRAGMENT_SHADER, fsSource));
+  gl.attachShader(prog, vs);
+  gl.attachShader(prog, fs);
   gl.linkProgram(prog);
+
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+    console.error('Program error:', gl.getProgramInfoLog(prog));
+    return;
+  }
+
   gl.useProgram(prog);
 
   const basePosLoc = gl.getAttribLocation(prog, 'a_basePos');
@@ -172,26 +186,26 @@
   const timeLoc    = gl.getUniformLocation(prog, 'u_time');
   const darkLoc    = gl.getUniformLocation(prog, 'u_isDark');
 
-  let cols, rows, basePositions;
+  let cols, rows, count;
+  const buf = gl.createBuffer();
 
   function buildGrid() {
     const spacing = 32;
     cols = Math.ceil(canvas.width / spacing);
     rows = Math.ceil(canvas.height / spacing);
-    const count = cols * rows;
-    basePositions = new Float32Array(count * 2);
+    count = cols * rows;
+    const positions = new Float32Array(count * 2);
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
         const i = (r * cols + c) * 2;
-        basePositions[i]     = (c + 0.5) / cols;
-        basePositions[i + 1] = (r + 0.5) / rows;
+        positions[i]     = (c + 0.5) / cols;
+        positions[i + 1] = (r + 0.5) / rows;
       }
     }
 
-    const buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, basePositions, gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
     gl.enableVertexAttribArray(basePosLoc);
     gl.vertexAttribPointer(basePosLoc, 2, gl.FLOAT, false, 0, 0);
   }
@@ -207,19 +221,20 @@
   let mouse  = { x: -9999, y: -9999 };
   let smooth = { x: -9999, y: -9999 };
 
-  canvas.parentElement.addEventListener('mousemove', function(e) {
+  const hero = canvas.parentElement;
+  hero.addEventListener('mousemove', function(e) {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
   });
 
-  canvas.parentElement.addEventListener('mouseleave', function() {
+  hero.addEventListener('mouseleave', function() {
     mouse.x = -9999;
     mouse.y = -9999;
   });
 
   resize();
-  setTimeout(resize, 100);
+  setTimeout(resize, 150);
   window.addEventListener('resize', resize);
 
   gl.enable(gl.BLEND);
@@ -243,7 +258,7 @@
     gl.uniform1f(timeLoc, t);
     gl.uniform1f(darkLoc, isDark);
 
-    gl.drawArrays(gl.POINTS, 0, cols * rows);
+    gl.drawArrays(gl.POINTS, 0, count);
     requestAnimationFrame(render);
   }
 
