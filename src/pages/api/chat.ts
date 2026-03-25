@@ -34,8 +34,14 @@ COMMUNITY
 - Co-leader of Friends of Figma Miami chapter.
 - Active mentor to designers navigating IC-to-manager path in platforms like ADPList.
 
+
 LEADERSHIP PHILOSOPHY
-Jonathan leads with servant leadership, rooted in his Christian faith. He believes a leader's job is to clear the path so their team can do their best work. He values radical clarity, empathy, and making room for people around him to grow.
+Jonathan leads with servant leadership, rooted in his Christian faith. He believes a leader's job is to clear the path so their team can do their best work. He values radical clarity, empathy, and making room for people around him to grow. Read more on Leadership page. 
+- Lead by doing
+- Put others first
+- The whole is greater
+- Humble confidence
+- Merit and hard work
 
 VIBE CODING & AI
 Jonathan is a Design Manager who builds. He created this website using Astro, Tailwind CSS, and Claude Code, with zero monthly hosting costs. He built the Ink Contrast Checker accessibility internal tool. More tools in the makiing. He is deeply interested in the intersection of AI and design.
