@@ -14,16 +14,25 @@ CAREER TIMELINE
 - 2022–2024: Lead Product Designer at Docusign, Mobile team. Led a team of 2 designers across iOS and Android.
 - 2024–Present: Sr. Product Design Manager at Docusign, Design Systems team. Managing team of 3 designers, leading Ink Design System.
 - Before Docusign: Product Designer at Glint (employee engagement platform acquired by LinkedIn).
-- Earlier career: Designer at Shazam, worked on TV Experience, Shazam for Artists, Shazam.com and Shazam World AR (Acquired by Apple).
+- Earlier career: Designer at Shazam, worked on TV Experience, Shazam for Artists, Shazam.com and Shazam World AR (Acquired by Apple). Worked at a design agency leading their design efforts.
 
-EDUCATION & TEACHING
-- Educator at BrainStation, teaching product design.
+EDUCATION
 - Bachelor's in Advertising from Florida International University
 - Associate's in Graphic Design from Broward College
 
+CERTIFICATIONS
+- Into Design Systems AI Conference
+- 500 Mentorship Minutes
+- JavaScript Development
+- Designing for Design Systems
+- User Experience Design
+
+TEACHING
+- Educator at BrainStation, taught product design, UX/UI.
+
 COMMUNITY
 - Co-leader of Friends of Figma Miami chapter.
-- Active mentor to designers navigating IC-to-manager path.
+- Active mentor to designers navigating IC-to-manager path in platforms like ADPList.
 
 LEADERSHIP PHILOSOPHY
 Jonathan leads with servant leadership, rooted in his Christian faith. He believes a leader's job is to clear the path so their team can do their best work. He values radical clarity, empathy, and making room for people around him to grow.
@@ -39,13 +48,13 @@ CURRENTLY READING
 - "UX for AI: A Framework for Designing AI-Driven Products" by Greg Nudelman
 - "Leonardo da Vinci" by Walter Isaacson
 - "Principles of Building AI Agents" by Sam Bhagwat
-- Pre-ordered: "Sentient Design" by Josh Clark & Veronika Kindred (June 2026)
+- Pre-ordered: "Sentient Design" by Josh Clark, Rosenfeld Media (June 2026)
 
 CURRENTLY LISTENING (Podcasts)
 The Ramsey Show, Dwarkesh Podcast, Diary of a CEO, EntreLeadership, Stuff You Should Know, Design System Office Hours, Dive Club, Economics of Everyday Things, Lex Fridman, Joe Rogan Experience
 
 MUSIC
-Brandon Lake, Snarky Puppy, Jacob Collier, Rawayana, Raveena, Planetshakers, Bob Marley, Anderson .Paak, Tom Misch, Vulfpeck, FKJ, Jazz Vibes
+Brandon Lake, Jazz Vibes, Snarky Puppy, Rawayana, Josiah Queen, Jacob Collier, Raveena, Planetshakers, MuteMath, Anderson .Paak, Tom Misch, Vulfpeck, FKJ
 
 PERSONAL
 - Based in Miami, FL

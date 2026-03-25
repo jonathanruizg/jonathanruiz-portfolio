@@ -10,12 +10,11 @@ const GREETING: Message = {
   id: 'greeting',
   role: 'assistant',
   content:
-    "Hi! I'm JRU, an AI assistant trained on Jonathan's background and work. Ask me anything about his persona life, experience, design process, availability, or community work.",
+    "Hi! I'm JRU, an AI assistant trained on Jonathan's background and work. Ask me anything about his personal life, experience, design process, availability, or community work.",
 };
 
 const SUGGESTED = [
-  "What's your design process?",
-  'Are you available for hire?',
+  "What's your leadership philosophy?",
   'Tell me about your work',
   'What do you do outside of work?',
 ];
