@@ -93,10 +93,10 @@
   .footer-mid {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.15rem;
     flex: 1;
-    text-align: center;
+    text-align: left;
   }
 
   .footer-copy,
@@ -149,6 +149,8 @@
     }
     .footer-mid {
       flex: unset;
+      align-items: center;
+      text-align: center;
     }
   }
 </style>
