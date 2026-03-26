@@ -69,7 +69,7 @@
 
   /* Social icons */
   .footer-social {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 0.25rem;
     flex-shrink: 0;
@@ -131,6 +131,9 @@
 
   /* Mobile */
   @media (max-width: 768px) {
+    .footer-social {
+      display: flex;
+    }
     .footer-root {
       padding-bottom: 5rem;
     }
