@@ -14,9 +14,10 @@ const GREETING: Message = {
 };
 
 const SUGGESTED = [
-  "What's your leadership philosophy?",
-  'Tell me about your work',
-  'What do you do outside of work?',
+  "What's his leadership philosophy?",
+  'Tell me about his work',
+  'What does he like to do outside of work?',
+  'What are his favorite places he has traveled?',
 ];
 
 // ─── Lucide icon paths ──────────────────────────────────────────────────────
