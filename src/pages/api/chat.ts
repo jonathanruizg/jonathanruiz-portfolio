@@ -116,7 +116,7 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (err) {
     console.error('Chat API error:', err);
     return new Response(
-      JSON.stringify({ content: `Debug: ${err instanceof Error ? err.message : String(err)}` }),
+      JSON.stringify({ content: "Sorry, I'm having trouble right now. Reach Jonathan directly at jonathanruizg@me.com" }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   }
